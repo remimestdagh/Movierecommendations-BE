@@ -23,7 +23,7 @@ namespace BackEndRemiMestdagh.Data
                     string json = r.ReadToEnd();
            
               
-              List<Film2> films = JsonConvert.DeserializeObject<List<Film2>>(json);
+              List<Film> films = JsonConvert.DeserializeObject<List<Film>>(json);
                 Console.WriteLine(films[1].titel);
                 
             }

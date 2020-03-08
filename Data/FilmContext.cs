@@ -1,4 +1,5 @@
-﻿using BackEndRemiMestdagh.Models;
+﻿using BackEndRemiMestdagh.Data.Models;
+using BackEndRemiMestdagh.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ namespace BackEndRemiMestdagh.Data
         public DbSet<Acteur> Acteurs { get; set; }
         public DbSet<Regisseur> Regisseurs { get; set; }
         public DbSet<Genre> Genres { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+
         public FilmContext(DbContextOptions<FilmContext> options)
                 : base(options)
             {

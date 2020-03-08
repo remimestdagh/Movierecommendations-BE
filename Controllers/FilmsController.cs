@@ -13,6 +13,15 @@ namespace BackEndRemiMestdagh.Controllers
     public class FilmsController : ControllerBase
     {
         private readonly IFilmRepository _filmRepository;
+        public FilmsController(IFilmRepository context)
+        {
+            _filmRepository = context;
+        }
+        [HttpGet]
+        public IEnumerable<Film> GetFilms()
+        {
+            return _filmRepository.GetAll().OrderBy(r => r.Score);
+        }
 
     }
 }

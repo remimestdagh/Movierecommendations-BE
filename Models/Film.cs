@@ -15,7 +15,7 @@ namespace BackEndRemiMestdagh.Models
         public string ImdbId { get; set; }
         public string Titel { get; set; }
      
-        public double Score { get; set; }
+        public int Score { get; set; }
        
         public List<ActeurFilm> Acteurs { get; set; }
         public Regisseur Regisseur { get; set; }

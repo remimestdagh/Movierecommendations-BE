@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 
@@ -17,8 +18,10 @@ namespace BackEndRemiMestdagh.Data
         }
         public void InitializeData()
         {
-
-            using (StreamReader r = new StreamReader(@"C:\Users\Remi\Desktop\csvjson.json"))
+            Console.WriteLine(_context.Films.Count());
+            
+            /*
+            using (StreamReader r = new StreamReader(@"C:\Users\Remi\Desktop\films2000metId.json"))
             {
                 string json = r.ReadToEnd();
 
@@ -82,10 +85,12 @@ namespace BackEndRemiMestdagh.Data
                         string[] tempruntime = m.runtime.Split(" ");
                         string formattedRuntime = "";
                         formattedRuntime = tempruntime[0];
+                       double formattedScore =double.Parse( m.score, CultureInfo.InvariantCulture) *10;
+                        int formattedScore2 = Convert.ToInt32(formattedScore);
                         Film nieuweFilm = new Film()
                         {
                             Titel = m.titel,
-                            Score = double.Parse(m.score),
+                            Score = formattedScore2,
                             Regisseur = regisseurVanFilm,
                             TitleImage = m.titleImage,
                             Runtime = int.Parse(formattedRuntime),
@@ -158,7 +163,7 @@ namespace BackEndRemiMestdagh.Data
                 }
 
             }
-
+            */
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,7 +9,7 @@ namespace BackEndRemiMestdagh.Models
 {
     public class Film
     {
-       public int FilmId { get; set; }
+        
         public string Titel { get; set; }
      
         public double Score { get; set; }

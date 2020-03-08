@@ -9,14 +9,14 @@ namespace BackEndRemiMestdagh.Models
     {
         public Acteur Acteur { get; set; }
         public Film Film { get; set; }
-        public int ActeurId { get; set; }
-        public int FilmId { get; set; }
+        public string ActeurId { get; set; }
+        public string FilmId { get; set; }
         public ActeurFilm(Film film, Acteur acteur):this()
         {
             Acteur = acteur;
             Film = film;
-            ActeurId = acteur.ActeurId;
-            FilmId = film.FilmId;
+            ActeurId = acteur.Naam;
+            FilmId = film.Titel;
         }
         public ActeurFilm()
         {

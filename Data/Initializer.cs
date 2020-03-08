@@ -61,6 +61,7 @@ namespace BackEndRemiMestdagh.Data
                         {
                             regisseurVanFilm = new Regisseur(regisseurString);
                             deRegisseur.Add(regisseurVanFilm);
+                            _context.Regisseurs.Add(regisseurVanFilm);
                         }
                         
 
@@ -105,6 +106,7 @@ namespace BackEndRemiMestdagh.Data
                                 acteur1 = new Acteur(acteur);
                                 acteurs.Add(acteur1);
                                 deActeursString.Add(acteur);
+                                _context.Acteurs.Add(acteur1);
                             }
                             acteursVanFilm.Add(acteur1);
                             acteurFilms.Add(new ActeurFilm(nieuweFilm, acteur1));
@@ -123,6 +125,7 @@ namespace BackEndRemiMestdagh.Data
                                 saveGenre = new Genre(genre);
                                 genres.Add(saveGenre);
                                 deGenresString.Add(genre);
+                                _context.Genres.Add(saveGenre);
                             }
 
                             genresVanFilm.Add(saveGenre);
@@ -132,6 +135,7 @@ namespace BackEndRemiMestdagh.Data
                         nieuweFilm.Acteurs = acteurFilms;
                         nieuweFilm.Genres = genreFilms;
                         deFilms.Add(nieuweFilm);
+                        _context.Films.Add(nieuweFilm);
 
                     }
 
@@ -140,14 +144,14 @@ namespace BackEndRemiMestdagh.Data
                     Console.WriteLine(deFilms.Count);
                     Console.WriteLine(acteurs.Count);
                     Console.WriteLine(genres.Count);
+                     
 
 
 
-
-                    _context.Regisseurs.AddRange(deRegisseur);
-                    _context.Acteurs.AddRange(acteurs);
-                    _context.Genres.AddRange(genres);
-                    _context.Films.AddRange(deFilms);
+                   // _context.Regisseurs.AddRange(deRegisseur);
+                 //   _context.Acteurs.AddRange(acteurs);
+                  //  _context.Genres.AddRange(genres);
+                    //_context.Films.AddRange(deFilms);
 
 
 

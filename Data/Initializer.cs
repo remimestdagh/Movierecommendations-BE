@@ -74,7 +74,7 @@ namespace BackEndRemiMestdagh.Data
                         {
                             Titel = m.titel,
                             Score = double.Parse(m.score),
-                            Regisseur = new Regisseur(regisseurString),
+                            Regisseur = saveRegi,
                             TitleImage = m.titleImage,
                             Runtime = double.Parse(formattedRuntime),
                             Year = int.Parse(m.year)

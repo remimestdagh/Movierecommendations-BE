@@ -19,9 +19,9 @@ namespace BackEndRemiMestdagh.Data
         public void InitializeData()
         {
             Console.WriteLine(_context.Films.Count());
-            
+
             /*
-            using (StreamReader r = new StreamReader(@"C:\Users\Remi\Desktop\films2000metId.json"))
+            using (StreamReader r = new StreamReader(@"C:\Users\remi\Source\Repos\Web-IV\1920-a2-be-remimestdagh\Data\json\films2000metId.json"))
             {
                 string json = r.ReadToEnd();
 

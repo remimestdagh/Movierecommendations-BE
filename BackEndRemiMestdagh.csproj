@@ -30,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Data\json\" />
     <Folder Include="scraper\" />
   </ItemGroup>
 

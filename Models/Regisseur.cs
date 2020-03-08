@@ -8,11 +8,15 @@ namespace BackEndRemiMestdagh.Models
     public class Regisseur
     {
         public string Naam { get; set; }
-        public int Id { get; internal set; }
+        public int RegisseurId { get; internal set; }
 
         public Regisseur()
         {
 
+        }
+        public Regisseur(string naam)
+        {
+            Naam = naam;
         }
     }
 }

@@ -1,18 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BackEndRemiMestdagh.Data;
 using BackEndRemiMestdagh.Data.Repositories;
 using BackEndRemiMestdagh.Models;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -36,14 +24,15 @@ namespace BackEndRemiMestdagh
 
             services.AddControllers();
             services.AddDbContext<FilmContext>(options =>
-         options.UseSqlServer(Configuration.GetConnectionString("FilmContext")));
+         options.UseSqlServer(Configuration.GetConnectionString("FilmContext")).EnableSensitiveDataLogging());
             services.AddSwaggerDocument();
             services.AddScoped<Initializer>();
             services.AddScoped<IFilmRepository, FilmRepository>();
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,Initializer initializer)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Initializer initializer)
         {
             if (env.IsDevelopment())
             {
@@ -61,7 +50,7 @@ namespace BackEndRemiMestdagh
                 endpoints.MapControllers();
             });
             initializer.InitializeData();
-            
+
         }
     }
 }

@@ -31,22 +31,36 @@ namespace BackEndRemiMestdagh.Data
                 _context.Database.EnsureDeleted();
                 if (_context.Database.EnsureCreated())
                 {
+                    HashSet<Acteur> acteurs = new HashSet<Acteur>();
+                    HashSet<Genre> genres = new HashSet<Genre>();
+                   
+                    HashSet<Film> deFilms = new HashSet<Film>();
+                    HashSet<Regisseur> deRegisseur = new HashSet<Regisseur>();
+
+
+                    HashSet<string> deRegisseursString = new HashSet<string>();
+                    HashSet<string> deGenresString = new HashSet<string>();
+                    HashSet<string> deActeursString = new HashSet<string>();
 
                     foreach (MockObject m in films)
                     {
-                        List<Acteur> acteurs = new List<Acteur>();
+                        
 
                         string[] tempact = m.stars.Split(",");
-                        Regisseur regisseur = new Regisseur() { Naam = tempact[0] };
-                        for (int i = 1; i < tempact.Length - 1; i++)
+
+                        string regisseurString = tempact[0];
+                        deRegisseursString.Add(regisseurString);
+                        Regisseur saveRegi = new Regisseur(regisseurString);
+                        for (int i = 1; i < tempact.Length - 2; i++)
                         {
-                            acteurs.Add(new Acteur() { Naam = tempact[i] });
+                            
+                            deActeursString.Add(tempact[i]);
                         }
-                        List<Genre> genres = new List<Genre>();
+
                         string[] tempgenres = m.genres.Split(", ");
                         for (int i = 0; i < tempgenres.Length - 1; i++)
                         {
-                            genres.Add(new Genre() { Naam = tempgenres[i] });
+                            deGenresString.Add(tempgenres[i]);
                         }
                         string[] tempruntime = m.runtime.Split(" ");
                         string formattedRuntime = "";
@@ -55,24 +69,60 @@ namespace BackEndRemiMestdagh.Data
 
 
 
-                        _context.Films.Add(new Film()
+
+                        Film nieuweFilm = new Film()
                         {
                             Titel = m.titel,
                             Score = double.Parse(m.score),
-                            Acteurs = acteurs,
-                            Regisseur = regisseur,
-                            Genres = genres,
+                            Regisseur = new Regisseur(regisseurString),
                             TitleImage = m.titleImage,
                             Runtime = double.Parse(formattedRuntime),
                             Year = int.Parse(m.year)
 
-                        });
+                        };
+                        
 
-                     _context.Acteurs.AddRange(acteurs);
-                        _context.Regisseurs.Add(regisseur);
+                        foreach (string acteur in deActeursString)
+                        {
+                            Acteur saveAct = new Acteur(acteur);
+                            acteurs.Add(saveAct);
+                            _context.Acteurs.Add(saveAct);
+
+                        }
+                        foreach (string genre in deGenresString)
+                        {
+                            Genre saveGenre = new Genre(genre);
+                            genres.Add(saveGenre);
+                            _context.Genres.Add(saveGenre);
+                        }
+                        foreach (string regisseur in deRegisseursString)
+                        {
+                            deRegisseur.Add(saveRegi);
+                            _context.Regisseurs.Add(saveRegi);
+                        }
+                        List<ActeurFilm> acteurFilms = new List<ActeurFilm>();
+                        List<GenreFilm> genreFilms = new List<GenreFilm>();
+                        foreach (Acteur acteur in acteurs)
+                        {
+                            acteurFilms.Add(new ActeurFilm(nieuweFilm, acteur));
+                        }
+                        foreach (Genre genre in genres)
+                        {
+                            genreFilms.Add(new GenreFilm(nieuweFilm, genre));
+                        }
+                        nieuweFilm.Acteurs = acteurFilms;
+                        nieuweFilm.Genres = genreFilms;
+                        deFilms.Add(nieuweFilm);
                     }
 
 
+
+                    Console.WriteLine(deFilms.Count);
+                    Console.WriteLine(acteurs.Count);
+                    Console.WriteLine(deRegisseur.Count);
+                    Console.WriteLine(genres.Count);
+
+                    _context.Films.AddRange(deFilms);
                 }
 
             }

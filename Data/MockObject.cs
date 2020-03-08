@@ -22,5 +22,7 @@ namespace BackEndRemiMestdagh.Data
         public string runtime { get; set; }
         [JsonProperty("year")]
         public string year { get; set; }
+        [JsonProperty("imdbID")]
+        public string imdbID { get; set; }
     }
 }

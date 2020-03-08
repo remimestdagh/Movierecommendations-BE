@@ -16,7 +16,7 @@ namespace BackEndRemiMestdagh.Models
             Genre = genre;
             Film = film;
             GenreId = genre.Naam;
-            FilmId = film.Titel;
+            FilmId = film.ImdbId;
         }
         public GenreFilm()
         {

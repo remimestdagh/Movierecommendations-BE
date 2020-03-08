@@ -16,7 +16,7 @@ namespace BackEndRemiMestdagh.Models
             Acteur = acteur;
             Film = film;
             ActeurId = acteur.Naam;
-            FilmId = film.Titel;
+            FilmId = film.ImdbId;
         }
         public ActeurFilm()
         {

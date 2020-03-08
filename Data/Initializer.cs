@@ -18,7 +18,7 @@ namespace BackEndRemiMestdagh.Data
         public void InitializeData()
         {
 
-            using (StreamReader r = new StreamReader(@"C:\Users\Remi\Desktop\films2000.json"))
+            using (StreamReader r = new StreamReader(@"C:\Users\Remi\Desktop\csvjson.json"))
             {
                 string json = r.ReadToEnd();
 
@@ -88,8 +88,9 @@ namespace BackEndRemiMestdagh.Data
                             Score = double.Parse(m.score),
                             Regisseur = regisseurVanFilm,
                             TitleImage = m.titleImage,
-                            Runtime = double.Parse(formattedRuntime),
-                            Year = int.Parse(m.year)
+                            Runtime = int.Parse(formattedRuntime),
+                            Year = m.year,
+                            ImdbId=m.imdbID
 
                         };
                         List<ActeurFilm> acteurFilms = new List<ActeurFilm>();
@@ -144,25 +145,19 @@ namespace BackEndRemiMestdagh.Data
                     Console.WriteLine(deFilms.Count);
                     Console.WriteLine(acteurs.Count);
                     Console.WriteLine(genres.Count);
-                     
+                    Console.WriteLine(deRegisseur.Count);
 
+                    _context.SaveChanges();
+                    Console.WriteLine(_context.Regisseurs.Count());
 
-
-                   // _context.Regisseurs.AddRange(deRegisseur);
-                 //   _context.Acteurs.AddRange(acteurs);
-                  //  _context.Genres.AddRange(genres);
+                    // _context.Regisseurs.AddRange(deRegisseur);
+                    //   _context.Acteurs.AddRange(acteurs);
+                    //  _context.Genres.AddRange(genres);
                     //_context.Films.AddRange(deFilms);
-
-
-
-
-
-
 
                 }
 
             }
-            _context.SaveChanges();
 
         }
     }

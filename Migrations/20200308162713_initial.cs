@@ -10,86 +10,79 @@ namespace BackEndRemiMestdagh.Migrations
                 name: "Acteurs",
                 columns: table => new
                 {
-                    ActeurId = table.Column<int>(maxLength: 50, nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Naam = table.Column<string>(nullable: true)
+                    Naam = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Acteurs", x => x.ActeurId);
+                    table.PrimaryKey("PK_Acteurs", x => x.Naam);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Genres",
                 columns: table => new
                 {
-                    GenreId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Naam = table.Column<string>(nullable: true)
+                    Naam = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Genres", x => x.GenreId);
+                    table.PrimaryKey("PK_Genres", x => x.Naam);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Regisseurs",
                 columns: table => new
                 {
-                    RegisseurId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Naam = table.Column<string>(nullable: true)
+                    Naam = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Regisseurs", x => x.RegisseurId);
+                    table.PrimaryKey("PK_Regisseurs", x => x.Naam);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Films",
                 columns: table => new
                 {
-                    FilmId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ImdbId = table.Column<string>(nullable: false),
                     Titel = table.Column<string>(maxLength: 50, nullable: false),
                     Score = table.Column<double>(nullable: false),
-                    RegisseurId = table.Column<int>(nullable: true),
+                    RegisseurNaam = table.Column<string>(nullable: true),
                     TitleImage = table.Column<string>(nullable: true),
                     Runtime = table.Column<double>(nullable: false),
-                    Year = table.Column<int>(nullable: false)
+                    Year = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Films", x => x.FilmId);
+                    table.PrimaryKey("PK_Films", x => x.ImdbId);
                     table.ForeignKey(
-                        name: "FK_Films_Regisseurs_RegisseurId",
-                        column: x => x.RegisseurId,
+                        name: "FK_Films_Regisseurs_RegisseurNaam",
+                        column: x => x.RegisseurNaam,
                         principalTable: "Regisseurs",
-                        principalColumn: "RegisseurId",
+                        principalColumn: "Naam",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ActeurFilm",
+                name: "ActeurFilms",
                 columns: table => new
                 {
-                    ActeurId = table.Column<int>(nullable: false),
-                    FilmId = table.Column<int>(nullable: false)
+                    ActeurId = table.Column<string>(nullable: false),
+                    FilmId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ActeurFilm", x => new { x.ActeurId, x.FilmId });
+                    table.PrimaryKey("PK_ActeurFilms", x => new { x.ActeurId, x.FilmId });
                     table.ForeignKey(
-                        name: "FK_ActeurFilm_Acteurs_ActeurId",
+                        name: "FK_ActeurFilms_Acteurs_ActeurId",
                         column: x => x.ActeurId,
                         principalTable: "Acteurs",
-                        principalColumn: "ActeurId",
+                        principalColumn: "Naam",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ActeurFilm_Films_FilmId",
+                        name: "FK_ActeurFilms_Films_FilmId",
                         column: x => x.FilmId,
                         principalTable: "Films",
-                        principalColumn: "FilmId",
+                        principalColumn: "ImdbId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -97,8 +90,8 @@ namespace BackEndRemiMestdagh.Migrations
                 name: "GenreFilm",
                 columns: table => new
                 {
-                    GenreId = table.Column<int>(nullable: false),
-                    FilmId = table.Column<int>(nullable: false)
+                    GenreId = table.Column<string>(nullable: false),
+                    FilmId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -107,25 +100,25 @@ namespace BackEndRemiMestdagh.Migrations
                         name: "FK_GenreFilm_Films_FilmId",
                         column: x => x.FilmId,
                         principalTable: "Films",
-                        principalColumn: "FilmId",
+                        principalColumn: "ImdbId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_GenreFilm_Genres_GenreId",
                         column: x => x.GenreId,
                         principalTable: "Genres",
-                        principalColumn: "GenreId",
+                        principalColumn: "Naam",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ActeurFilm_FilmId",
-                table: "ActeurFilm",
+                name: "IX_ActeurFilms_FilmId",
+                table: "ActeurFilms",
                 column: "FilmId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Films_RegisseurId",
+                name: "IX_Films_RegisseurNaam",
                 table: "Films",
-                column: "RegisseurId");
+                column: "RegisseurNaam");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GenreFilm_FilmId",
@@ -136,7 +129,7 @@ namespace BackEndRemiMestdagh.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ActeurFilm");
+                name: "ActeurFilms");
 
             migrationBuilder.DropTable(
                 name: "GenreFilm");

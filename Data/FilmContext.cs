@@ -22,9 +22,9 @@ namespace BackEndRemiMestdagh.Data
 
             protected override void OnModelCreating(ModelBuilder builder)
             {
-            builder.Entity<Film>().Property(r => r.Titel).IsRequired().HasMaxLength(50);
-            builder.Entity<Acteur>().Property(r => r.Naam).IsRequired().HasMaxLength(50);
-            builder.Entity<Film>().HasKey(r => r.Titel);
+            builder.Entity<Film>().Property(r => r.Titel).IsRequired();
+            builder.Entity<Acteur>().Property(r => r.Naam).IsRequired();
+            builder.Entity<Film>().HasKey(r => r.ImdbId);
             builder.Entity<Acteur>().HasKey(r => r.Naam);
             builder.Entity<Regisseur>().HasKey(r => r.Naam);
             builder.Entity<Genre>().HasKey(r => r.Naam);

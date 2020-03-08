@@ -5,14 +5,9 @@ using System.Threading.Tasks;
 
 namespace BackEndRemiMestdagh.Models
 {
-    public class Acteur
+    public class Genre
     {
+        public int Id { get; set; }
         public string Naam { get; set; }
-        public int Id { get; internal set; }
-
-        public Acteur()
-        {
-
-        }
     }
 }

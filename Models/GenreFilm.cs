@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BackEndRemiMestdagh.Models
 {
-    public class Regiseur
+    public class GenreFilm
     {
     }
 }

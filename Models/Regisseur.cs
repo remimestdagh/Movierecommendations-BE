@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace BackEndRemiMestdagh.Models
 {
-    public class Acteur
+    public class Regisseur
     {
         public string Naam { get; set; }
         public int Id { get; internal set; }
 
-        public Acteur()
+        public Regisseur()
         {
 
         }

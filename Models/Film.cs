@@ -8,19 +8,19 @@ namespace BackEndRemiMestdagh.Models
 {
     public class Film
     {
-        [JsonProperty("titel")]
-        public string titel { get; set; }
-        [JsonProperty("score")]
-        public string score { get; set; }
-        [JsonProperty("stars")]
-        public string stars { get; set; }
-        [JsonProperty("genres")]
-        public string genres { get; set; }
-        [JsonProperty("titleImage")]
-        public string titleImage { get; set; }
-        [JsonProperty("runtime")]
-        public string runtime { get; set; }
-        [JsonProperty("year")]
-        public string year { get; set; }
+       public int Id { get; set; }
+        public string Titel { get; set; }
+     
+        public double Score { get; set; }
+       
+        public List<Acteur> Acteurs { get; set; }
+        public Regisseur Regisseur { get; set; }
+        public List<Genre> Genres { get; set; }
+   
+        public string TitleImage { get; set; }
+      
+        public double Runtime { get; set; }
+  
+        public int Year { get; set; }
     }
 }

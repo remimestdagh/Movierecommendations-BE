@@ -8,7 +8,7 @@
 
 - [x] Opsomming van de instellingen die nodig zijn om je backend project lokaal te runnen, indien nodig
 
-Domein laag
+### Domein laag
 
 - [x] Het domein bevat minstens 2 geassocieerde klassen
 
@@ -16,7 +16,7 @@ Domein laag
 
 - [x] Klassendiagram is aangemaakt, toont de properties, methodes en de associaties
 
-Data laag
+### Data laag
 
 - [x] DataContext is aangemaakt
 
@@ -24,7 +24,7 @@ Data laag
 
 - [x] Databank wordt geseed met data (In DataContext zoals in Recipe REST API voorbeeld, of via initializer)
 
-Controller
+### Controller
 
 - [ ] Minstens 1 controller met endpoints voor de CRUD operaties
 
@@ -32,6 +32,6 @@ Controller
 
 - [ ] Enkel de benodigde data wordt uitgewisseld (DTO’s indien nodig)
 
-Swagger
+### Swagger
 
 - [ ] De documentatie is opgesteld

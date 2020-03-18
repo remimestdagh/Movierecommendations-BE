@@ -12,7 +12,11 @@ namespace BackEndRemiMestdagh.Models
         public Customer Klant { get; set; }
         public int CustomerId { get; set; }
         public string FilmId { get; set; }
-        public CustomerFilm(Customer klant, Film film)
+        protected CustomerFilm()
+        {
+
+        }
+        public CustomerFilm(Customer klant, Film film):this()
         {
             Film = film;
             Klant = klant;

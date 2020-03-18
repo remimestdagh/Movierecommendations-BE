@@ -20,26 +20,26 @@ namespace BackEndRemiMestdagh.Controllers
             _filmRepository = context;
             _customerRepository = customerRepository;
         }
-        [HttpGet]
+        [HttpGet("GetFilms")]
         public IEnumerable<Film> GetFilms()
         {
             return _filmRepository.GetAll().OrderBy(r => r.Score);
         }
 
-        [HttpGet]
+        [HttpGet("GetFavourites")]
         public IEnumerable<Film> GetCustomersFavourites()
         {
             Customer customer = _customerRepository.GetBy(User.Identity.Name);
             return _filmRepository.GetFavourites(customer);
         }
-        [HttpGet]
+        [HttpGet("GetRecommendForFilm")]
         public IEnumerable<Film> GetBestRecommendationsForFilm(Film film)
         {
             Customer customer = _customerRepository.GetBy(User.Identity.Name);
             return film.GetBestRecommendations(_filmRepository.GetAll());
             
         }
-        [HttpGet]
+        [HttpGet("GetRecommendBasedOnFavourites")]
         public IEnumerable<Film> GetRecommendationsForAllUserFavourites()
         {
             List<Film> recommendations = new List<Film>();

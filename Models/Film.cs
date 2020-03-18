@@ -72,6 +72,8 @@ namespace BackEndRemiMestdagh.Models
             return gelijkenissen;
         }*/
         
+
+            //todo sorteren zodat de beste match eerst komt
         public List<Film> GetBestRecommendations(IEnumerable<Film> films)
         {
             List<KeyValuePair<int, Film>> filmMatches = new List<KeyValuePair<int, Film>>();

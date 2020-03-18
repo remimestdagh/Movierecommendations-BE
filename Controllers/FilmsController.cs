@@ -39,6 +39,19 @@ namespace BackEndRemiMestdagh.Controllers
             return film.GetBestRecommendations(_filmRepository.GetAll());
             
         }
+        [HttpGet]
+        public IEnumerable<Film> GetRecommendationsForAllUserFavourites()
+        {
+            List<Film> recommendations = new List<Film>();
+            Customer customer = _customerRepository.GetBy(User.Identity.Name);
+            List<Film> favouritesCurrentUser = customer.GetFavouriteFilms();
+            foreach(Film film in favouritesCurrentUser)
+            {
+                recommendations.AddRange(film.GetBestRecommendations(_filmRepository.GetAll()));
+            }
+            return recommendations;
+          
+        }
 
     }
 }

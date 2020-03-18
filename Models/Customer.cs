@@ -36,8 +36,13 @@ namespace BackEndRemiMestdagh.Data.Models
             {
                 throw new ArgumentException("This movie is already part of your favourites");
             }
-            FavorieteFilms.Add(new CustomerFilm(this, film));
+            FavorieteFilms.ToList().Add(new CustomerFilm(this, film));
         }
+        public List<Film> GetFavouriteFilms()
+        {
+            return FavorieteFilms.Select(f => f.Film).ToList();
+        }
+
         #endregion
 
 

@@ -30,6 +30,7 @@ namespace BackEndRemiMestdagh.Models
             Acteurs = new List<ActeurFilm>();
             Genres = new List<GenreFilm>();
         }
+        /*
         public List<KeyValuePair<List<String>, Film>> GetRecommendations(IEnumerable<Film> films)
         {
             //teller die kijkt hoeveel overeenkomsten er zijn
@@ -69,7 +70,8 @@ namespace BackEndRemiMestdagh.Models
                 gelijkenissen.Add(filmMetGelijkenissen);
             }
             return gelijkenissen;
-        }
+        }*/
+        
         public List<Film> GetBestRecommendations(IEnumerable<Film> films)
         {
             List<KeyValuePair<int, Film>> filmMatches = new List<KeyValuePair<int, Film>>();

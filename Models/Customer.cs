@@ -1,4 +1,9 @@
-﻿namespace BackEndRemiMestdagh.Data.Models
+﻿using BackEndRemiMestdagh.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace BackEndRemiMestdagh.Data.Models
 {
     public class Customer
     {
@@ -12,6 +17,7 @@
             public string LastName { get; set; }
 
             public string Email { get; set; }
+        public IEnumerable<CustomerFilm> FavorieteFilms { get; private set; }
 
 
             #endregion
@@ -19,11 +25,21 @@
             #region Constructors
             public Customer()
             {
-                
+            FavorieteFilms = new List<CustomerFilm>();
             }
-            #endregion
+        #endregion
 
-            
-            
+        #region methods
+        public void AddToFavourites(Film film)
+        {
+            if (FavorieteFilms.Select(s => s.Film).Contains(film))
+            {
+                throw new ArgumentException("This movie is already part of your favourites");
+            }
+            FavorieteFilms.Add(new CustomerFilm(this, film));
         }
+        #endregion
+
+
     }
+}

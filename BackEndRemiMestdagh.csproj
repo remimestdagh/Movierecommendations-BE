@@ -7,6 +7,9 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <UserSecretsId>c21693b2-23a1-4e73-bec0-56c1ddf09efd</UserSecretsId>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile />
+  </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Migrations\20200308114910_initial.cs" />
     <Compile Remove="Migrations\20200308114910_initial.Designer.cs" />

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BackEndRemiMestdagh.Data.Models;
 using BackEndRemiMestdagh.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,14 +14,23 @@ namespace BackEndRemiMestdagh.Controllers
     public class FilmsController : ControllerBase
     {
         private readonly IFilmRepository _filmRepository;
-        public FilmsController(IFilmRepository context)
+        private readonly ICustomerRepository _customerRepository;
+        public FilmsController(IFilmRepository context, ICustomerRepository customerRepository)
         {
             _filmRepository = context;
+            _customerRepository = customerRepository;
         }
         [HttpGet]
         public IEnumerable<Film> GetFilms()
         {
             return _filmRepository.GetAll().OrderBy(r => r.Score);
+        }
+
+        [HttpGet]
+        public IEnumerable<Film> GetCustomersFavourites()
+        {
+            Customer customer = _customerRepository.GetBy(User.Identity.Name);
+            return _filmRepository.GetFavourites(customer);
         }
 
     }

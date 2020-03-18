@@ -11,7 +11,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using NSwag.Generation.Processors.Security;
 using System.Text;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace BackEndRemiMestdagh
 {
@@ -57,20 +56,21 @@ namespace BackEndRemiMestdagh
             {
                 x.DefaultAuthenticateScheme =
                 JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(Configuration["Tokens:Key"])),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    RequireExpirationTime = true //Ensure token hasn't expired
-                };
-            });
+            })
+ .AddJwtBearer(x =>
+ {
+     x.RequireHttpsMetadata = false;
+     x.SaveToken = true;
+     x.TokenValidationParameters = new TokenValidationParameters
+     {
+         ValidateIssuerSigningKey = true,
+         IssuerSigningKey = new SymmetricSecurityKey(
+    Encoding.UTF8.GetBytes(Configuration["Tokens:Key"])),
+         ValidateIssuer = false,
+         ValidateAudience = false,
+         RequireExpirationTime = true //Ensure token hasn't expired
+     };
+ });
 
         }
 

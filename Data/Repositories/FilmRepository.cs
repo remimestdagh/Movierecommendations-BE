@@ -1,4 +1,5 @@
-﻿using BackEndRemiMestdagh.Models;
+﻿using BackEndRemiMestdagh.Data.Models;
+using BackEndRemiMestdagh.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,12 @@ namespace BackEndRemiMestdagh.Data.Repositories
 
         public IEnumerable<Film> GetAll()
         {
-           return _films.ToList();
+            return _films.ToList();
         }
-    }
+
+        public IEnumerable<Film> GetFavourites(Customer klant)
+        {
+            return klant.FavorieteFilms.Select(f => f.Film);
+        }
+    } 
 }

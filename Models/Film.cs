@@ -32,6 +32,25 @@ namespace BackEndRemiMestdagh.Models
             Acteurs = new List<ActeurFilm>();
             Genres = new List<GenreFilm>();
         }
+        public KeyValuePair<List<String>,IEnumerable<Film>> GetRecommendations(IEnumerable<Film> films)
+        {
+            //teller die kijkt hoeveel overeenkomsten er zijn
+            int aantalMatches = 0;
+            List<String> gelijkenissen = new List<String>();
+            Film dezeFilm = films.Single(f => f.ImdbId == this.ImdbId);
+            films.ToList().Remove(dezeFilm);
+            foreach(Film film in films)
+            {
+                String gemeenschappelijkeRegisseur = "";
+                List<String> gemeenschappelijkeGenres = film.Genres.Intersect(this.Genres).Select(g => g.Genre.Naam).ToList();
+                List<String> gemeenschappelijkeActeurs = film.Acteurs.Intersect(this.Acteurs).Select(a => a.Acteur.Naam).ToList();
+                if(Regisseur == film.Regisseur)
+                {
+                    gemeenschappelijkeRegisseur = Regisseur.Naam;
+                }
+            }
+
+        }
         
     }
 }

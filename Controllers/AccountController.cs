@@ -1,4 +1,5 @@
-﻿using BackEndRemiMestdagh.DTOs;
+﻿using BackEndRemiMestdagh.Data.Models;
+using BackEndRemiMestdagh.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -56,6 +57,23 @@ namespace BackEndRemiMestdagh.Controllers
                     string token = GetToken(user);
                     return Created("", token); //returns only the token
                 }
+            }
+            return BadRequest();
+        }
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public async Task<ActionResult<String>> Register(RegisterDTO model)
+        {
+            IdentityUser user = new IdentityUser { UserName = model.Email, Email = model.Email };
+            Customer customer = new Customer { Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
+            var result = await _userManager.CreateAsync(user, model.Password);
+
+            if (result.Succeeded)
+            {
+                _customerRepository.Add(customer);
+                _customerRepository.SaveChanges();
+                string token = GetToken(user);
+                return Created("", token);
             }
             return BadRequest();
         }

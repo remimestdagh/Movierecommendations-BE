@@ -1,5 +1,6 @@
 ﻿using BackEndRemiMestdagh.Controllers;
 using BackEndRemiMestdagh.Data.Models;
+using BackEndRemiMestdagh.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -33,5 +34,6 @@ namespace BackEndRemiMestdagh.Data.Repositories
         {
             _context.SaveChanges();
         }
-    }
+
+     
 }

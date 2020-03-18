@@ -32,6 +32,13 @@ namespace BackEndRemiMestdagh.Controllers
             Customer customer = _customerRepository.GetBy(User.Identity.Name);
             return _filmRepository.GetFavourites(customer);
         }
+        [HttpGet]
+        public IEnumerable<Film> GetBestRecommendationsForFilm(Film film)
+        {
+            Customer customer = _customerRepository.GetBy(User.Identity.Name);
+            return film.GetBestRecommendations(_filmRepository.GetAll());
+            
+        }
 
     }
 }

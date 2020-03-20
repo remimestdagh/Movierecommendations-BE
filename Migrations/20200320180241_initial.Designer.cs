@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackEndRemiMestdagh.Migrations
 {
     [DbContext(typeof(FilmContext))]
-    [Migration("20200320111558_initial")]
+    [Migration("20200320180241_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -1,3 +1,4 @@
+using BackEndRemiMestdagh.Controllers;
 using BackEndRemiMestdagh.Data;
 using BackEndRemiMestdagh.Data.Repositories;
 using BackEndRemiMestdagh.Models;
@@ -35,6 +36,7 @@ namespace BackEndRemiMestdagh
             services.AddSwaggerDocument();
             services.AddScoped<Initializer>();
             services.AddScoped<IFilmRepository, FilmRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddOpenApiDocument(c =>
             {
                 c.DocumentName = "apidocs";

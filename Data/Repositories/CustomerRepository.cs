@@ -18,7 +18,7 @@ namespace BackEndRemiMestdagh.Data.Repositories
 
         public Customer GetBy(string email)
         {
-            return _customers.SingleOrDefault(c => c.Email == email);
+            return _customers.Include(c=>c.FavorieteFilms).ThenInclude(f=>f.Film).SingleOrDefault(c => c.Email == email);
         }
 
         public void Add(Customer customer)

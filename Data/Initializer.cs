@@ -1,26 +1,41 @@
-﻿using BackEndRemiMestdagh.Models;
+﻿using BackEndRemiMestdagh.Data.Models;
+using BackEndRemiMestdagh.Models;
+using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BackEndRemiMestdagh.Data
 {
     public class Initializer
     {
         private FilmContext _context;
-        public Initializer(FilmContext context)
+        private UserManager<IdentityUser> _userManager;
+        public Initializer(FilmContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
 
         }
-        public void InitializeData()
+        
+        public async Task InitializeData()
         {
-          
+            Customer customer = new Customer { Email = "recipemaster@hogent.be", FirstName = "Adam", LastName = "Master" };
+            Console.WriteLine("1");
+            _context.Customers.Add(customer);
+            await CreateUser(customer.Email, "P@ssword1111");
+            Customer student = new Customer { Email = "student@hogent.be", FirstName = "Student", LastName = "Hogent" };
+            _context.Customers.Add(student);
+            await CreateUser(student.Email, "P@ssword1111");
+            Console.WriteLine("2");
 
-            
+
+
+
             using (StreamReader r = new StreamReader(@"C:\Users\remi\Source\Repos\Web-IV\1920-a2-be-remimestdagh\Data\json\films2000metId.json"))
             {
                 string json = r.ReadToEnd();
@@ -152,6 +167,19 @@ namespace BackEndRemiMestdagh.Data
                     Console.WriteLine(genres.Count);
                     Console.WriteLine(deRegisseur.Count);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
                     _context.SaveChanges();
                     Console.WriteLine(_context.Regisseurs.Count());
 
@@ -164,6 +192,14 @@ namespace BackEndRemiMestdagh.Data
 
             }
             
+        }
+
+
+
+        private async Task CreateUser(string email, string password)
+        {
+            var user = new IdentityUser { UserName = email, Email = email };
+            await _userManager.CreateAsync(user, password);
         }
     }
 }

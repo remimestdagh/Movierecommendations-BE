@@ -20,11 +20,19 @@ namespace BackEndRemiMestdagh.Data.Models
             public string Email { get; set; }
         public IEnumerable<CustomerFilm> FavorieteFilms { get; private set; }
 
+        public CustomerFilm CustomerFilm
+        {
+            get => default;
+            set
+            {
+            }
+        }
 
-            #endregion
 
-            #region Constructors
-            public Customer()
+        #endregion
+
+        #region Constructors
+        public Customer()
             {
             FavorieteFilms = new List<CustomerFilm>();
             }

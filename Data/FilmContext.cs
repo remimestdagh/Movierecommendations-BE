@@ -39,8 +39,8 @@ namespace BackEndRemiMestdagh.Data
             builder.Entity<GenreFilm>().HasOne(t => t.Genre).WithMany().HasForeignKey(t => t.GenreId).IsRequired().OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<CustomerFilm>().HasKey(t => new { t.CustomerId, t.FilmId });
-            builder.Entity<CustomerFilm>().HasOne(t => t.Film).WithMany().OnDelete(DeleteBehavior.Cascade);
-            builder.Entity<CustomerFilm>().HasOne(t => t.Klant).WithMany(t => t.FavorieteFilms).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<CustomerFilm>().HasOne(t => t.Film).WithMany().HasForeignKey(t=>t.FilmId).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<CustomerFilm>().HasOne(t => t.Klant).WithMany(t => t.FavorieteFilms).HasForeignKey(t=>t.CustomerId).OnDelete(DeleteBehavior.Cascade);
 
 
 

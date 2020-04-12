@@ -23,7 +23,7 @@ namespace BackEndRemiMestdagh.Models
 
         public double Runtime { get; set; }
 
-        public string Year { get; set; }
+        public int Year { get; set; }
 
         public Film()
         {

@@ -210,7 +210,7 @@ namespace BackEndRemiMestdagh.Migrations
                     RegisseurNaam = table.Column<string>(nullable: true),
                     TitleImage = table.Column<string>(nullable: true),
                     Runtime = table.Column<double>(nullable: false),
-                    Year = table.Column<string>(nullable: true)
+                    Year = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -252,7 +252,8 @@ namespace BackEndRemiMestdagh.Migrations
                 columns: table => new
                 {
                     CustomerId = table.Column<int>(nullable: false),
-                    FilmId = table.Column<string>(nullable: false)
+                    FilmId = table.Column<string>(nullable: false),
+                    CustomerId1 = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -263,6 +264,12 @@ namespace BackEndRemiMestdagh.Migrations
                         principalTable: "Customers",
                         principalColumn: "CustomerId",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CustomerFilm_Customers_CustomerId1",
+                        column: x => x.CustomerId1,
+                        principalTable: "Customers",
+                        principalColumn: "CustomerId",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_CustomerFilm_Films_FilmId",
                         column: x => x.FilmId,
@@ -338,6 +345,13 @@ namespace BackEndRemiMestdagh.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CustomerFilm_CustomerId1",
+                table: "CustomerFilm",
+                column: "CustomerId1",
+                unique: true,
+                filter: "[CustomerId1] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerFilm_FilmId",

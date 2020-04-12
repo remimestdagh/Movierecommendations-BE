@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackEndRemiMestdagh.Migrations
 {
     [DbContext(typeof(FilmContext))]
-    [Migration("20200320180241_initial")]
+    [Migration("20200412093903_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.2")
+                .HasAnnotation("ProductVersion", "3.1.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -75,7 +75,14 @@ namespace BackEndRemiMestdagh.Migrations
                     b.Property<string>("FilmId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int?>("CustomerId1")
+                        .HasColumnType("int");
+
                     b.HasKey("CustomerId", "FilmId");
+
+                    b.HasIndex("CustomerId1")
+                        .IsUnique()
+                        .HasFilter("[CustomerId1] IS NOT NULL");
 
                     b.HasIndex("FilmId");
 
@@ -103,8 +110,8 @@ namespace BackEndRemiMestdagh.Migrations
                     b.Property<string>("TitleImage")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Year")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
 
                     b.HasKey("ImdbId");
 
@@ -370,6 +377,10 @@ namespace BackEndRemiMestdagh.Migrations
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("BackEndRemiMestdagh.Data.Models.Customer", null)
+                        .WithOne("CustomerFilm")
+                        .HasForeignKey("BackEndRemiMestdagh.Models.CustomerFilm", "CustomerId1");
 
                     b.HasOne("BackEndRemiMestdagh.Models.Film", "Film")
                         .WithMany()

@@ -36,7 +36,7 @@ namespace BackEndRemiMestdagh.Data
 
 
 
-            using (StreamReader r = new StreamReader(@"C:\Users\remi\Source\Repos\Web-IV\1920-a2-be-remimestdagh\Data\json\films2000metId.json"))
+            using (StreamReader r = new StreamReader(@"C:\Users\Remi\Source\Repos\Web-IV\1920-a2-be-remimestdagh33\Data\json\films2000metId.json"))
             {
                 string json = r.ReadToEnd();
 
@@ -102,6 +102,7 @@ namespace BackEndRemiMestdagh.Data
                         formattedRuntime = tempruntime[0];
                        double formattedScore =double.Parse( m.score, CultureInfo.InvariantCulture) *10;
                         int formattedScore2 = Convert.ToInt32(formattedScore);
+                        Console.WriteLine(m.year);
                         Film nieuweFilm = new Film()
                         {
                             Titel = m.titel,
@@ -109,7 +110,7 @@ namespace BackEndRemiMestdagh.Data
                             Regisseur = regisseurVanFilm,
                             TitleImage = m.titleImage,
                             Runtime = int.Parse(formattedRuntime),
-                            Year = m.year,
+                            Year = int.Parse(m.year),
                             ImdbId=m.imdbID
 
                         };
@@ -162,10 +163,7 @@ namespace BackEndRemiMestdagh.Data
 
 
 
-                    Console.WriteLine(deFilms.Count);
-                    Console.WriteLine(acteurs.Count);
-                    Console.WriteLine(genres.Count);
-                    Console.WriteLine(deRegisseur.Count);
+           
 
 
 
@@ -181,7 +179,7 @@ namespace BackEndRemiMestdagh.Data
 
 
                     _context.SaveChanges();
-                    Console.WriteLine(_context.Regisseurs.Count());
+                  
 
                     // _context.Regisseurs.AddRange(deRegisseur);
                     //   _context.Acteurs.AddRange(acteurs);

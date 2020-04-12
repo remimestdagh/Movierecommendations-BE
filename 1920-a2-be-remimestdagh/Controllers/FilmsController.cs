@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using BackEndRemiMestdagh.Data.Models;
 using BackEndRemiMestdagh.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BackEndRemiMestdagh.Controllers
 {
+   
     [Route("api/[controller]")]
     [ApiController]
     public class FilmsController : ControllerBase
@@ -20,6 +22,7 @@ namespace BackEndRemiMestdagh.Controllers
             _filmRepository = context;
             _customerRepository = customerRepository;
         }
+        [AllowAnonymous] //dit moet nog veranderd worden
         [HttpGet("GetFilms")]
         public IEnumerable<Film> GetFilms()
         {

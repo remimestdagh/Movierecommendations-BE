@@ -31,8 +31,9 @@ namespace BackEndRemiMestdagh
             services.AddControllers();
             services.AddDbContext<FilmContext>(options =>
          options.UseSqlServer(Configuration.GetConnectionString("FilmContext")).EnableSensitiveDataLogging());
+            services.AddIdentity<IdentityUser, IdentityRole>(cfg => cfg.User.RequireUniqueEmail = true).AddEntityFrameworkStores<FilmContext>();
             //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<FilmContext>();
-         
+
             services.AddSwaggerDocument();
             services.AddScoped<Initializer>();
             services.AddScoped<IFilmRepository, FilmRepository>();
@@ -41,15 +42,15 @@ namespace BackEndRemiMestdagh
 
 
 
-            services.AddIdentity<IdentityUser, IdentityRole>(cfg => cfg.User.RequireUniqueEmail = true).AddEntityFrameworkStores<FilmContext>();
+
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
-                options.Password.RequireNonAlphanumeric = true;
-                options.Password.RequireUppercase = true;
-                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 8;
                 options.Password.RequiredUniqueChars = 1;
 
                 // Lockout settings.
@@ -81,7 +82,7 @@ namespace BackEndRemiMestdagh
                 };
             });
 
-           
+
 
 
 
@@ -108,7 +109,7 @@ namespace BackEndRemiMestdagh
                 builder.AllowAnyOrigin()));
 
         }
-        
+
 
 
 

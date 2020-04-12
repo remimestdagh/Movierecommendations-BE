@@ -50,7 +50,7 @@ namespace BackEndRemiMestdagh.Models
             get { return this._score; }
             set
             {
-                if (value <= 0)
+                if (value <= 0 ||value>100)
                 {
                     throw new ArgumentException("De score is niet ingevuld");
                 }
@@ -80,7 +80,7 @@ namespace BackEndRemiMestdagh.Models
             get { return this._runtime; }
             set
             {
-                if (value <= 0)
+                if (value <= 0||value>1000)
                 {
                     throw new ArgumentException("De duur van de film moet groter dan 0 zijn");
                 }
@@ -93,7 +93,7 @@ namespace BackEndRemiMestdagh.Models
             get { return this._year; }
             set
             {
-                if (value <= 0)
+                if (value <= 1800||value>2100)
                 {
                     throw new ArgumentException("Het jaar moet groter dan 0 zijn");
                 }
@@ -101,11 +101,24 @@ namespace BackEndRemiMestdagh.Models
             }
         }
 
-        public Film()
+        public Film() 
         {
             Acteurs = new List<ActeurFilm>();
             Genres = new List<GenreFilm>();
         }
+        public Film(string imdbid,string titel,int score, List<ActeurFilm>acteurs, Regisseur regisseur,List<GenreFilm> genres,string titleimage, double runtime,int year) : this()
+        {
+            ImdbId = imdbid;
+            Titel = titel;
+            Score = score;
+            Acteurs = acteurs;
+            Regisseur = regisseur;
+            Genres = genres;
+            TitleImage = titleimage;
+            Runtime = runtime;
+            Year = year;
+        }
+
         /*
         public List<KeyValuePair<List<String>, Film>> GetRecommendations(IEnumerable<Film> films)
         {

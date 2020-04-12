@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackEndRemiMestdaghTest", "..\BackEndRemiMestdaghTest\BackEndRemiMestdaghTest.csproj", "{823E252A-DAC9-467C-AAD0-FC65E08424EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackEndRemiMestdaghTest", "BackEndRemiMestdaghTest\BackEndRemiMestdaghTest.csproj", "{79E61289-575B-4F63-87BE-DF8CF5398B0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,10 +22,10 @@ Global
 		{EC628EDA-DE53-48F1-8473-EE4067977E0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC628EDA-DE53-48F1-8473-EE4067977E0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC628EDA-DE53-48F1-8473-EE4067977E0C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{823E252A-DAC9-467C-AAD0-FC65E08424EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{823E252A-DAC9-467C-AAD0-FC65E08424EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{823E252A-DAC9-467C-AAD0-FC65E08424EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{823E252A-DAC9-467C-AAD0-FC65E08424EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79E61289-575B-4F63-87BE-DF8CF5398B0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79E61289-575B-4F63-87BE-DF8CF5398B0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79E61289-575B-4F63-87BE-DF8CF5398B0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79E61289-575B-4F63-87BE-DF8CF5398B0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

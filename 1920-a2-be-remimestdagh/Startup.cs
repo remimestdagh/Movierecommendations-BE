@@ -31,50 +31,17 @@ namespace BackEndRemiMestdagh
             services.AddControllers();
             services.AddDbContext<FilmContext>(options =>
          options.UseSqlServer(Configuration.GetConnectionString("FilmContext")).EnableSensitiveDataLogging());
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<FilmContext>();
-            //services.AddIdentity<IdentityUser, IdentityRole>(cfg => cfg.User.RequireUniqueEmail = true).AddEntityFrameworkStores<FilmContext>();
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<FilmContext>();
+         
             services.AddSwaggerDocument();
             services.AddScoped<Initializer>();
             services.AddScoped<IFilmRepository, FilmRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
-            services.AddOpenApiDocument(c =>
-            {
-                c.DocumentName = "apidocs";
-                c.Title = "Film API";
-                c.Version = "v1";
-                c.Description = "The Film API documentation description.";
-                c.DocumentProcessors.Add(new SecurityDefinitionAppender("JWT Token", new NSwag.OpenApiSecurityScheme
-                {
-                    Type = NSwag.OpenApiSecuritySchemeType.ApiKey,
-                    Name = "Authorization",
-                    In = NSwag.OpenApiSecurityApiKeyLocation.Header,
-                    Description = "Copy 'Bearer' + valid JWT token into field"
-                }));
-                c.OperationProcessors.Add(new OperationSecurityScopeProcessor("JWT Token"));
-            });
-            services.AddCors(options =>
-                      options.AddPolicy("AllowAllOrigins", builder =>
-                builder.AllowAnyOrigin()));
-           
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme =
-                JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(
-               Encoding.UTF8.GetBytes(Configuration["Tokens:Key"])),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    RequireExpirationTime = true //Ensure token hasn't expired
-                };
-            });
 
+
+
+
+            services.AddIdentity<IdentityUser, IdentityRole>(cfg => cfg.User.RequireUniqueEmail = true).AddEntityFrameworkStores<FilmContext>();
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.
@@ -95,9 +62,53 @@ namespace BackEndRemiMestdagh
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = true;
             });
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme =
+                JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(
+               Encoding.UTF8.GetBytes(Configuration["Tokens:Key"])),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    RequireExpirationTime = true //Ensure token hasn't expired
+                };
+            });
 
-            services.AddCors(options => options.AddPolicy("AllowAllOrigins", builder => builder.AllowAnyOrigin()));
+           
+
+
+
+
+
+
+            services.AddOpenApiDocument(c =>
+            {
+                c.DocumentName = "apidocs";
+                c.Title = "Film API";
+                c.Version = "v1";
+                c.Description = "The Film API documentation description.";
+                c.DocumentProcessors.Add(new SecurityDefinitionAppender("JWT Token", new NSwag.OpenApiSecurityScheme
+                {
+                    Type = NSwag.OpenApiSecuritySchemeType.ApiKey,
+                    Name = "Authorization",
+                    In = NSwag.OpenApiSecurityApiKeyLocation.Header,
+                    Description = "Copy 'Bearer' + valid JWT token into field"
+                }));
+                c.OperationProcessors.Add(new OperationSecurityScopeProcessor("JWT Token"));
+            });
+            services.AddCors(options =>
+                      options.AddPolicy("AllowAllOrigins", builder =>
+                builder.AllowAnyOrigin()));
+
         }
+        
 
 
 
@@ -114,6 +125,7 @@ namespace BackEndRemiMestdagh
             app.UseSwaggerUi3();
             app.UseRouting();
             app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

@@ -36,7 +36,7 @@ namespace BackEndRemiMestdagh.Data
 
 
 
-            using (StreamReader r = new StreamReader(@"C:\Users\Remi\Source\Repos\Web-IV\1920-a2-be-remimestdagh33\Data\json\films2000metId.json"))
+            using (StreamReader r = new StreamReader(@"C:\Users\Remi\Source\Repos\Web-IV\1920-a2-be-remimestdagh\1920-a2-be-remimestdagh\Data\json\films2000metId.json"))
             {
                 string json = r.ReadToEnd();
 

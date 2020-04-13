@@ -10,6 +10,7 @@ namespace BackEndRemiMestdagh.Models
     {
         IEnumerable<Film> GetAll();
         IEnumerable<Film> GetFavourites(Customer klant);
+        Film GetById(int id);
         
     }
 }

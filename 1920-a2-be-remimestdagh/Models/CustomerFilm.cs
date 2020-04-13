@@ -11,7 +11,7 @@ namespace BackEndRemiMestdagh.Models
         public Film Film { get; set; }
         public Customer Klant { get; set; }
         public int CustomerId { get; set; }
-        public string FilmId { get; set; }
+        public int FilmId { get; set; }
         protected CustomerFilm()
         {
 
@@ -21,7 +21,7 @@ namespace BackEndRemiMestdagh.Models
             Film = film;
             Klant = klant;
             CustomerId = klant.CustomerId;
-            FilmId = film.ImdbId;
+            FilmId = film.Id;
         }
 
     }

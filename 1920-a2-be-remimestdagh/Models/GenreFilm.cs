@@ -9,14 +9,14 @@ namespace BackEndRemiMestdagh.Models
     {
         public Genre Genre { get; set; }
         public Film Film { get; set; }
-        public string GenreId { get; set; }
-        public string FilmId { get; set; }
+        public int GenreId { get; set; }
+        public int FilmId { get; set; }
         public GenreFilm(Film film, Genre genre) : this()
         {
             Genre = genre;
             Film = film;
-            GenreId = genre.Naam;
-            FilmId = film.ImdbId;
+            GenreId = genre.Id;
+            FilmId = film.Id;
         }
         public GenreFilm()
         {

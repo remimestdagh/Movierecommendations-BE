@@ -16,6 +16,7 @@ namespace BackEndRemiMestdagh.Models
                 }
                 _naam = value;
             } }
+        public int Id { get; set; }
         public Genre()
         {
 

@@ -46,10 +46,7 @@ namespace BackEndRemiMestdagh.Data
 
 
                     List<MockObject> films = JsonConvert.DeserializeObject<List<MockObject>>(json);
-                    Console.WriteLine(films[1].ToString());
-
-
-
+                 
 
                     _context.Database.EnsureDeleted();
                     if (_context.Database.EnsureCreated())
@@ -106,7 +103,6 @@ namespace BackEndRemiMestdagh.Data
                             formattedRuntime = tempruntime[0];
                             double formattedScore = double.Parse(m.score, CultureInfo.InvariantCulture) * 10;
                             int formattedScore2 = Convert.ToInt32(formattedScore);
-                            Console.WriteLine(m.year);
                             Film nieuweFilm = new Film()
                             {
                                 Titel = m.titel,
@@ -114,8 +110,7 @@ namespace BackEndRemiMestdagh.Data
                                 Regisseur = regisseurVanFilm,
                                 TitleImage = m.titleImage,
                                 Runtime = int.Parse(formattedRuntime),
-                                Year = int.Parse(m.year),
-                                ImdbId = m.imdbID
+                                Year = int.Parse(m.year)
 
                             };
                             List<ActeurFilm> acteurFilms = new List<ActeurFilm>();

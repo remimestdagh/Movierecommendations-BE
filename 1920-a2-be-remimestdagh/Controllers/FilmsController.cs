@@ -55,6 +55,28 @@ namespace BackEndRemiMestdagh.Controllers
             return recommendations;
           
         }
+        [HttpPost("{id}")]
+        public IActionResult AddToFavourites(int id, Film film)
+        {
+
+            if (id != film.Id)
+            {
+                return BadRequest();
+            }
+            Customer customer = _customerRepository.GetBy(User.Identity.Name);
+            customer.AddToFavourites(_filmRepository.GetById(id));
+            return NoContent();
+
+        }
+
+
+
+        [HttpGet("Favorites")]
+        public IEnumerable<Film> GetFavorites()
+        {
+            Customer customer = _customerRepository.GetBy(User.Identity.Name);
+            return customer.FavorieteFilms.Select(f=>f.Film).ToList();
+        }
 
     }
 }

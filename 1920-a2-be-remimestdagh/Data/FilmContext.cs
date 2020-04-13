@@ -25,10 +25,10 @@ namespace BackEndRemiMestdagh.Data
             base.OnModelCreating(builder);
             builder.Entity<Film>().Property(r => r.Titel).IsRequired();
             builder.Entity<Acteur>().Property(r => r.Naam).IsRequired();
-            builder.Entity<Film>().HasKey(r => r.ImdbId);
-            builder.Entity<Acteur>().HasKey(r => r.Naam);
+            builder.Entity<Film>().HasKey(r => r.Id);
+            builder.Entity<Acteur>().HasKey(r => r.Id);
             builder.Entity<Regisseur>().HasKey(r => r.Naam);
-            builder.Entity<Genre>().HasKey(r => r.Naam);
+            builder.Entity<Genre>().HasKey(r => r.Id);
             builder.Entity<ActeurFilm>().ToTable("ActeurFilms");
             builder.Entity<ActeurFilm>().HasKey(t => new { t.ActeurId, t.FilmId });
             builder.Entity<ActeurFilm>().HasOne(t => t.Film).WithMany(t => t.Acteurs).HasForeignKey(t => t.FilmId).IsRequired().OnDelete(DeleteBehavior.Cascade);

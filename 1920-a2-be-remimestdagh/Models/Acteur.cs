@@ -18,7 +18,7 @@ namespace BackEndRemiMestdagh.Models
             }
         }
 
-
+        public int Id { get; set; }
 
         public Acteur()
         {

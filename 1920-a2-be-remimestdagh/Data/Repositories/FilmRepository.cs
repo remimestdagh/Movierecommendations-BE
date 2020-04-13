@@ -25,9 +25,15 @@ namespace BackEndRemiMestdagh.Data.Repositories
             return _films.ToList();
         }
 
+        public Film GetById(int id)
+        {
+            return _films.Single(f => f.Id == id);
+        }
+
         public IEnumerable<Film> GetFavourites(Customer klant)
         {
             return klant.FavorieteFilms.Select(f => f.Film);
         }
+
     } 
 }

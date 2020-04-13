@@ -8,27 +8,13 @@ namespace BackEndRemiMestdagh.Models
 {
     public class Film
     {
-        private string _imdbId;
         private string _titel;
         private int _score;
         private string _titleImage;
         private double _runtime;
         private int _year;
 
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public string ImdbId
-        {
-            get { return this._imdbId; }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentException("Het imdbid moet ingevuld worden");
-                }
-                this._imdbId = value;
-            }
-        }
+        public int Id { get; set; }
         public string Titel
         {
             get
@@ -106,9 +92,9 @@ namespace BackEndRemiMestdagh.Models
             Acteurs = new List<ActeurFilm>();
             Genres = new List<GenreFilm>();
         }
-        public Film(string imdbid,string titel,int score, List<ActeurFilm>acteurs, Regisseur regisseur,List<GenreFilm> genres,string titleimage, double runtime,int year) : this()
+        public Film(string titel,int score, List<ActeurFilm>acteurs, Regisseur regisseur,List<GenreFilm> genres,string titleimage, double runtime,int year) : this()
         {
-            ImdbId = imdbid;
+            
             Titel = titel;
             Score = score;
             Acteurs = acteurs;

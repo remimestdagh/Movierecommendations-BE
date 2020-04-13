@@ -18,15 +18,7 @@ namespace BackEndRemiMestdagh.Data.Models
 
         public string Email { get; set; }
         public ICollection<CustomerFilm> FavorieteFilms { get; private set; }
-
-        public CustomerFilm CustomerFilm
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
+        public IEnumerable<Film> Films => FavorieteFilms.Select(f => f.Film);
 
         #endregion
 

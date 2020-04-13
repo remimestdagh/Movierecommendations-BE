@@ -30,10 +30,6 @@ namespace BackEndRemiMestdagh.Data.Repositories
             return _films.FirstOrDefault(f => f.Id == id);
         }
 
-        public IEnumerable<Film> GetFavourites(Customer klant)
-        {
-            return klant.FavorieteFilms.Select(f => f.Film);
-        }
 
     } 
 }

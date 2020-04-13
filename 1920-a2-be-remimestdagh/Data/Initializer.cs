@@ -172,7 +172,6 @@ namespace BackEndRemiMestdagh.Data
             user = new IdentityUser() { UserName = student.Email, Email = student.Email };
             await _userManager.CreateAsync(user, "P@ssword123");
 
-            student.AddToFavourites(_context.Films.First());
 
             _context.Customers.Add(customer);
             _context.Customers.Add(student);

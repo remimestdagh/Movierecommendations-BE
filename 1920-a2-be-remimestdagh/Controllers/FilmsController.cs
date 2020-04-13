@@ -33,7 +33,7 @@ namespace BackEndRemiMestdagh.Controllers
         public IEnumerable<Film> GetCustomersFavourites()
         {
             Customer customer = _customerRepository.GetByEmail(User.Identity.Name);
-            return _filmRepository.GetFavourites(customer);
+            return customer.Films;
         }
         [HttpGet("GetRecommendForFilm")]
         public IEnumerable<Film> GetBestRecommendationsForFilm(Film film)

@@ -38,13 +38,9 @@ namespace BackEndRemiMestdagh.Data.Models
         #endregion
 
         #region methods
-        public void AddToFavourites(Film film)
+       public void AddToFavourites(Film film)
         {
-            if (FavorieteFilms.Select(s => s.Film).Contains(film))
-            {
-                throw new ArgumentException("This movie is already part of your favourites");
-            }
-            FavorieteFilms.ToList().Add(new CustomerFilm(this, film));
+            FavorieteFilms.Add(new CustomerFilm() { Film = film, FilmId = film.Id, Klant = this, CustomerId = this.CustomerId });
         }
 
         public List<Film> GetFavouriteFilms()

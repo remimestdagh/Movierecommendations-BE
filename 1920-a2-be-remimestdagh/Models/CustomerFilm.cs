@@ -12,17 +12,7 @@ namespace BackEndRemiMestdagh.Models
         public Customer Klant { get; set; }
         public int CustomerId { get; set; }
         public int FilmId { get; set; }
-        protected CustomerFilm()
-        {
-
-        }
-        public CustomerFilm(Customer klant, Film film):this()
-        {
-            Film = film;
-            Klant = klant;
-            CustomerId = klant.CustomerId;
-            FilmId = film.Id;
-        }
+       
 
     }
 }

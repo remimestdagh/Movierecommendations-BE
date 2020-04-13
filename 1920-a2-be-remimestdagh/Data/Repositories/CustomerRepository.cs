@@ -16,9 +16,9 @@ namespace BackEndRemiMestdagh.Data.Repositories
             _customers = dbContext.Customers;
         }
 
-        public Customer GetBy(string email)
+        public Customer GetByEmail(string email)
         {
-            return _customers.Include(c=>c.FavorieteFilms).ThenInclude(f=>f.Film).SingleOrDefault(c => c.Email == email);
+            return _customers.Include(c=>c.FavorieteFilms).ThenInclude(f=>f.Film).Where(g => g.Email.Equals(email)).FirstOrDefault();
         }
 
         public void Add(Customer customer)

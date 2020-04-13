@@ -25,7 +25,7 @@ namespace BackEndRemiMestdagh.Controllers
         [HttpGet()]
         public ActionResult<CustomerDTO> GetCustomer()
         {
-            Customer customer = _customerRepository.GetBy(User.Identity.Name);
+            Customer customer = _customerRepository.GetByEmail(User.Identity.Name);
             return new CustomerDTO(customer);
         }
 

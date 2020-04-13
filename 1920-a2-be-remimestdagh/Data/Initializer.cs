@@ -29,13 +29,6 @@ namespace BackEndRemiMestdagh.Data
             if (_context.Database.EnsureCreated())
             {
                 
-
-
-
-
-
-
-
                 using (StreamReader r = new StreamReader(@"C:\Users\Remi\Source\Repos\Web-IV\1920-a2-be-remimestdagh\1920-a2-be-remimestdagh\Data\json\films2000metId.json"))
                 {
                     string json = r.ReadToEnd();
@@ -178,6 +171,8 @@ namespace BackEndRemiMestdagh.Data
             Customer student = new Customer { Email = "student@hogent.be", FirstName = "Student", LastName = "Hogent" };
             user = new IdentityUser() { UserName = student.Email, Email = student.Email };
             await _userManager.CreateAsync(user, "P@ssword123");
+
+            student.AddToFavourites(_context.Films.First());
 
             _context.Customers.Add(customer);
             _context.Customers.Add(student);

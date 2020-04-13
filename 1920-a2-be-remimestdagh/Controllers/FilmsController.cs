@@ -32,13 +32,13 @@ namespace BackEndRemiMestdagh.Controllers
         [HttpGet("GetFavourites")]
         public IEnumerable<Film> GetCustomersFavourites()
         {
-            Customer customer = _customerRepository.GetBy(User.Identity.Name);
+            Customer customer = _customerRepository.GetByEmail(User.Identity.Name);
             return _filmRepository.GetFavourites(customer);
         }
         [HttpGet("GetRecommendForFilm")]
         public IEnumerable<Film> GetBestRecommendationsForFilm(Film film)
         {
-            Customer customer = _customerRepository.GetBy(User.Identity.Name);
+            Customer customer = _customerRepository.GetByEmail(User.Identity.Name);
             return film.GetBestRecommendations(_filmRepository.GetAll());
 
         }
@@ -46,7 +46,7 @@ namespace BackEndRemiMestdagh.Controllers
         public IEnumerable<Film> GetRecommendationsForAllUserFavourites()
         {
             List<Film> recommendations = new List<Film>();
-            Customer customer = _customerRepository.GetBy(User.Identity.Name);
+            Customer customer = _customerRepository.GetByEmail(User.Identity.Name);
             List<Film> favouritesCurrentUser = customer.GetFavouriteFilms();
             foreach (Film film in favouritesCurrentUser)
             {
@@ -55,16 +55,19 @@ namespace BackEndRemiMestdagh.Controllers
             return recommendations;
 
         }
-        [HttpPost]
-        public IActionResult AddToFavourites([FromBody] int id)
+        [HttpPost("{id}")]
+        public IActionResult AddToFavourites([FromRoute] int id)
         {
 
             if (_filmRepository.GetById(id) == null)
             {
                 return BadRequest();
             }
-            Customer customer = _customerRepository.GetBy(User.Identity.Name);
-            Console.WriteLine(customer.CustomerId);
+            Customer customer = _customerRepository.GetByEmail(User.Identity.Name);
+            if(customer == null)
+            {
+                return BadRequest();
+            }
             Film film = _filmRepository.GetById(id);
             customer.AddToFavourites(film);
             _customerRepository.SaveChanges();
@@ -78,7 +81,7 @@ namespace BackEndRemiMestdagh.Controllers
         [HttpGet("Favorites")]
         public IEnumerable<Film> GetFavorites()
         {
-            Customer customer = _customerRepository.GetBy(User.Identity.Name);
+            Customer customer = _customerRepository.GetByEmail(User.Identity.Name);
             return customer.FavorieteFilms.Select(f=>f.Film).ToList();
         }
 

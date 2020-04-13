@@ -34,6 +34,11 @@ namespace BackEndRemiMestdagh.Data.Models
         {
             FavorieteFilms.Add(new CustomerFilm() { Film = film, FilmId = film.Id, Klant = this, CustomerId = this.CustomerId });
         }
+        public void RemoveFavourite(Film film)
+        {
+            CustomerFilm cf = FavorieteFilms.SingleOrDefault(f => f.FilmId == film.Id);
+            FavorieteFilms.Remove(cf);
+        }
 
         public List<Film> GetFavouriteFilms()
         {

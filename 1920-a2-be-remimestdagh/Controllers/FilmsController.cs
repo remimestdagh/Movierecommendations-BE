@@ -35,6 +35,22 @@ namespace BackEndRemiMestdagh.Controllers
             Customer customer = _customerRepository.GetByEmail(User.Identity.Name);
             return customer.Films;
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteFavourite([FromRoute] int id)
+        {
+            Film film = _filmRepository.GetById(id);
+            if (film == null)
+            {
+                return NotFound();
+            }
+            Customer customer = _customerRepository.GetByEmail(User.Identity.Name);
+            customer.RemoveFavourite(film);
+            _customerRepository.SaveChanges();
+            return NoContent();
+
+        }
+
         [HttpGet("GetRecommendForFilm")]
         public IEnumerable<Film> GetBestRecommendationsForFilm(Film film)
         {

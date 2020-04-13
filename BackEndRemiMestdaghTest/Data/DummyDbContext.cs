@@ -26,8 +26,8 @@ namespace BackEndRemiMestdaghTest.Data
                 Regisseur = regisseur1,
                 TitleImage = "foto.png",
                 Runtime = 200,
-                Year = 1997,
-                ImdbId = "iruegh"
+                Year = 1997
+                
             };
             film2 = new Film()
             {
@@ -37,8 +37,7 @@ namespace BackEndRemiMestdaghTest.Data
                 Regisseur = regisseur1,
                 TitleImage = "foto.png",
                 Runtime = 200,
-                Year = 1999,
-                ImdbId = "iruegh"
+                Year = 1999
             };
 
         }

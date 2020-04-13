@@ -28,14 +28,10 @@ namespace BackEndRemiMestdagh.Data
 
             if (_context.Database.EnsureCreated())
             {
-                Customer customer = new Customer { Email = "recipemaster@hogent.be", FirstName = "Adam", LastName = "Master" };
-                Console.WriteLine("1");
-                _context.Customers.Add(customer);
-                await CreateUser(customer.Email, "P@ssword1111");
-                Customer student = new Customer { Email = "student@hogent.be", FirstName = "Student", LastName = "Hogent" };
-                _context.Customers.Add(student);
-                await CreateUser(student.Email, "P@ssword1111");
-                Console.WriteLine("2");
+                
+
+
+
 
 
 
@@ -161,29 +157,9 @@ namespace BackEndRemiMestdagh.Data
                         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         _context.SaveChanges();
 
-
-                        // _context.Regisseurs.AddRange(deRegisseur);
-                        //   _context.Acteurs.AddRange(acteurs);
-                        //  _context.Genres.AddRange(genres);
-                        //_context.Films.AddRange(deFilms);
+                        await InitializeUsers();
 
                     }
 
@@ -192,12 +168,21 @@ namespace BackEndRemiMestdagh.Data
             }
         }
 
-
-
-        private async Task CreateUser(string email, string password)
+        public async Task InitializeUsers()
         {
-            var user = new IdentityUser { UserName = email, Email = email };
-            await _userManager.CreateAsync(user, password);
+            Customer customer = new Customer { Email = "movieking@hogent.be", FirstName = "Adam", LastName = "Master" };
+
+            IdentityUser user = new IdentityUser() { UserName = customer.Email, Email = customer.Email };
+            await _userManager.CreateAsync(user, "P@ssword123");
+
+            Customer student = new Customer { Email = "student@hogent.be", FirstName = "Student", LastName = "Hogent" };
+            user = new IdentityUser() { UserName = student.Email, Email = student.Email };
+            await _userManager.CreateAsync(user, "P@ssword123");
+
+            _context.Customers.Add(customer);
+            _context.Customers.Add(student);
+            _context.SaveChanges();
         }
+
     }
 }

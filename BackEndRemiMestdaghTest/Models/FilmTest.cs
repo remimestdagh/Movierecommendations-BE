@@ -28,15 +28,6 @@ namespace BackEndRemiMestdaghTest.Models
         [InlineData(null)]
         [InlineData("")]
         [InlineData("   ")]
-        public void LegeImdbIdGeeftException(string invalidString)
-        {
-            Assert.Throws<ArgumentException>(() => _context.film1.ImdbId = invalidString);
-
-        }
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData("   ")]
         public void LegeTitleImageGeeftException(string invalidString)
         {
             Assert.Throws<ArgumentException>(() => _context.film1.TitleImage = invalidString);

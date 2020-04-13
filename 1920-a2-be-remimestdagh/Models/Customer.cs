@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Identity;
 
 namespace BackEndRemiMestdagh.Data.Models
 {
@@ -10,14 +9,14 @@ namespace BackEndRemiMestdagh.Data.Models
     {
 
         #region Properties
-            //add extra properties if needed
-            public int CustomerId { get; set; }
+        //add extra properties if needed
+        public int CustomerId { get; set; }
 
-            public string FirstName { get; set; }
+        public string FirstName { get; set; }
 
-            public string LastName { get; set; }
+        public string LastName { get; set; }
 
-            public string Email { get; set; }
+        public string Email { get; set; }
         public IEnumerable<CustomerFilm> FavorieteFilms { get; private set; }
 
         public CustomerFilm CustomerFilm
@@ -33,9 +32,9 @@ namespace BackEndRemiMestdagh.Data.Models
 
         #region Constructors
         public Customer()
-            {
+        {
             FavorieteFilms = new List<CustomerFilm>();
-            }
+        }
         #endregion
 
         #region methods

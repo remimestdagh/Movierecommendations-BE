@@ -7,5 +7,7 @@ namespace BackEndRemiMestdagh.DTOs
 {
     public class FilmDTO
     {
+
+
     }
 }

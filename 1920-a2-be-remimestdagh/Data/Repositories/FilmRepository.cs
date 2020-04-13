@@ -27,7 +27,7 @@ namespace BackEndRemiMestdagh.Data.Repositories
 
         public Film GetById(int id)
         {
-            return _films.Single(f => f.Id == id);
+            return _films.FirstOrDefault(f => f.Id == id);
         }
 
         public IEnumerable<Film> GetFavourites(Customer klant)

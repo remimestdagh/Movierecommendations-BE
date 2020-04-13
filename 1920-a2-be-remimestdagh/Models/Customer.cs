@@ -17,7 +17,7 @@ namespace BackEndRemiMestdagh.Data.Models
         public string LastName { get; set; }
 
         public string Email { get; set; }
-        public IEnumerable<CustomerFilm> FavorieteFilms { get; private set; }
+        public ICollection<CustomerFilm> FavorieteFilms { get; private set; }
 
         public CustomerFilm CustomerFilm
         {
@@ -46,6 +46,7 @@ namespace BackEndRemiMestdagh.Data.Models
             }
             FavorieteFilms.ToList().Add(new CustomerFilm(this, film));
         }
+
         public List<Film> GetFavouriteFilms()
         {
             return FavorieteFilms.Select(f => f.Film).ToList();

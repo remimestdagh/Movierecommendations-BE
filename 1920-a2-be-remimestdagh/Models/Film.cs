@@ -154,19 +154,13 @@ namespace BackEndRemiMestdagh.Models
             {
                 int aantalMatches = 0;
                 List<String> gemeenschappelijkeGenres = film.Genres.Intersect(this.Genres).Select(g => g.Genre.Naam).ToList();
-                List<String> gemeenschappelijkeActeurs = film.Acteurs.Intersect(this.Acteurs).Select(a => a.Acteur.Naam).ToList();
+
                 if (Regisseur.Naam.Equals(film.Regisseur.Naam))
                 {
                     aantalMatches++;
                 }
-                foreach (String genre in gemeenschappelijkeGenres)
-                {
-                    aantalMatches++;
-                }
-                foreach (String acteur in gemeenschappelijkeActeurs)
-                {
-                    aantalMatches++;
-                }
+    
+                aantalMatches = aantalMatches + gemeenschappelijkeGenres.Count;
 
                 filmMatches.Add(new KeyValuePair<int, Film>(aantalMatches, film));
 

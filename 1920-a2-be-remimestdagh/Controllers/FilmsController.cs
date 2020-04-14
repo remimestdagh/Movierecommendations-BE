@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BackEndRemiMestdagh.Data.Models;
+using BackEndRemiMestdagh.DTOs;
 using BackEndRemiMestdagh.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -24,15 +25,24 @@ namespace BackEndRemiMestdagh.Controllers
         }
         [AllowAnonymous] //dit moet nog veranderd worden
         [HttpGet("GetFilms")]
-        public IEnumerable<Film> GetFilms()
+        public IEnumerable<FilmDTO> GetFilms()
         {
-            return _filmRepository.GetAll().OrderByDescending(r => r.Score);
+            List<Film> films = _filmRepository.GetAll().OrderByDescending(r => r.Score).ToList();
+            List<FilmDTO> dtos = new List<FilmDTO>();
+            foreach(Film film in films)
+            {
+                string[] genres = film.Genres.Select(g => g.Genre.Naam).ToArray();
+                string[] acteurs = film.Acteurs.Select(g => g.Acteur.Naam).ToArray();
+                dtos.Add(new FilmDTO() {Id=film.Id, Titel = film.Titel, Score = film.Score, Regisseur = film.Regisseur.Naam, Genres = genres, Acteurs = acteurs, TitleImage = film.TitleImage, Runtime = film.Runtime, Year = film.Year });
+            }
+            return dtos;
+           // return _filmRepository.GetAll().OrderByDescending(r => r.Score);
         }
 
         [HttpGet("GetFavourites")]
         public IEnumerable<Film> GetCustomersFavourites()
         {
-            Customer customer = _customerRepository.GetByEmail(User.Identity.Name);
+            Customer customer = _customerRepository.GetByEmail2(User.Identity.Name);
             return customer.Films;
         }
 
@@ -60,7 +70,7 @@ namespace BackEndRemiMestdagh.Controllers
 
         }
         [HttpGet("GetRecommendBasedOnFavourites")]
-        public IEnumerable<Film> GetRecommendationsForAllUserFavourites()
+        public IEnumerable<FilmDTO> GetRecommendationsForAllUserFavourites()
         {
             List<Film> recommendations = new List<Film>();
             Customer customer = _customerRepository.GetByEmail(User.Identity.Name);
@@ -69,7 +79,15 @@ namespace BackEndRemiMestdagh.Controllers
             {
                 recommendations.AddRange(film.GetBestRecommendations(_filmRepository.GetAll(),favouritesCurrentUser));
             }
-            return recommendations;
+            List<FilmDTO> dtos = new List<FilmDTO>();
+            foreach (Film film in recommendations)
+            {
+                string[] genres = film.Genres.Select(g => g.Genre.Naam).ToArray();
+                string[] acteurs = film.Acteurs.Select(g => g.Acteur.Naam).ToArray();
+                dtos.Add(new FilmDTO() { Id = film.Id, Titel = film.Titel, Score = film.Score, Regisseur = film.Regisseur.Naam, Genres = genres, Acteurs = acteurs, TitleImage = film.TitleImage, Runtime = film.Runtime, Year = film.Year });
+            }
+            return dtos;
+           // return recommendations;
 
         }
         [HttpPost("{id}")]

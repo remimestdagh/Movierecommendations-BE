@@ -20,7 +20,11 @@ namespace BackEndRemiMestdagh.Data.Repositories
         }
         public Customer GetByEmail(string email)
         {
-            return _customers.Include(c => c.FavorieteFilms).ThenInclude(f => f.Film).ThenInclude(g=>g.Genres).ThenInclude(m=>m.Genre).Where(k => k.Email.Equals(email)).FirstOrDefault();
+            return _customers
+                .Include(c => c.FavorieteFilms).ThenInclude(f => f.Film).ThenInclude(g=>g.Genres).ThenInclude(m=>m.Genre)
+                .Include(a=>a.FavorieteFilms).ThenInclude(j => j.Film).ThenInclude(h => h.Acteurs).ThenInclude(l => l.Acteur)
+                .Where(k => k.Email.Equals(email)).FirstOrDefault();
+            
         }
         public Customer GetByEmail2(string email)
         {

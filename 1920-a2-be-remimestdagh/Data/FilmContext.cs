@@ -24,7 +24,6 @@ namespace BackEndRemiMestdagh.Data
         {
             base.OnModelCreating(builder);
             builder.Entity<Film>().Property(r => r.Titel).IsRequired();
-            builder.Entity<Acteur>().Property(r => r.Naam).IsRequired();
             builder.Entity<Film>().HasKey(r => r.Id);
             builder.Entity<Acteur>().HasKey(r => r.Id);
             builder.Entity<Regisseur>().HasKey(r => r.Naam);

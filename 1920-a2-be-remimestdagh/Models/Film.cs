@@ -147,20 +147,33 @@ namespace BackEndRemiMestdagh.Models
 
 
         //todo sorteren zodat de beste match eerst komt
-        public List<Film> GetBestRecommendations(IEnumerable<Film> films,List<Film>favorieten)
+        public List<Film> GetBestRecommendations(IEnumerable<Film> films, List<Film> favorieten)
         {
             List<KeyValuePair<int, Film>> filmMatches = new List<KeyValuePair<int, Film>>();
             foreach (Film film in films)
             {
                 int aantalMatches = 0;
-                List<String> gemeenschappelijkeGenres = film.Genres.Intersect(this.Genres).Select(g => g.Genre.Naam).ToList();
-
                 if (Regisseur.Naam.Equals(film.Regisseur.Naam))
                 {
                     aantalMatches++;
                 }
-    
-                aantalMatches = aantalMatches + gemeenschappelijkeGenres.Count;
+                
+                foreach(Genre genre in Genres.Select(m=>m.Genre))
+                {
+                    if (genre.Naam.Equals(film.Genres.Select(g => g.Genre.Naam)))
+                    {
+                        aantalMatches++;
+                    }
+                }
+                foreach (Acteur acteur in Acteurs.Select(m => m.Acteur))
+                {
+                    if (acteur.Naam.Equals(film.Acteurs.Select(g => g.Acteur.Naam)))
+                    {
+                        aantalMatches++;
+                    }
+                }
+
+
 
                 filmMatches.Add(new KeyValuePair<int, Film>(aantalMatches, film));
 

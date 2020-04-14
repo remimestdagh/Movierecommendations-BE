@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace BackEndRemiMestdagh.Models
@@ -36,7 +34,7 @@ namespace BackEndRemiMestdagh.Models
             get { return this._score; }
             set
             {
-                if (value <= 0 ||value>100)
+                if (value <= 0 || value > 100)
                 {
                     throw new ArgumentException("De score is niet ingevuld");
                 }
@@ -66,7 +64,7 @@ namespace BackEndRemiMestdagh.Models
             get { return this._runtime; }
             set
             {
-                if (value <= 0||value>1000)
+                if (value <= 0 || value > 1000)
                 {
                     throw new ArgumentException("De duur van de film moet groter dan 0 zijn");
                 }
@@ -79,7 +77,7 @@ namespace BackEndRemiMestdagh.Models
             get { return this._year; }
             set
             {
-                if (value <= 1800||value>2100)
+                if (value <= 1800 || value > 2100)
                 {
                     throw new ArgumentException("Het jaar moet groter dan 0 zijn");
                 }
@@ -87,14 +85,14 @@ namespace BackEndRemiMestdagh.Models
             }
         }
 
-        public Film() 
+        public Film()
         {
             Acteurs = new List<ActeurFilm>();
             Genres = new List<GenreFilm>();
         }
-        public Film(string titel,int score, List<ActeurFilm>acteurs, Regisseur regisseur,List<GenreFilm> genres,string titleimage, double runtime,int year) : this()
+        public Film(string titel, int score, List<ActeurFilm> acteurs, Regisseur regisseur, List<GenreFilm> genres, string titleimage, double runtime, int year) : this()
         {
-            
+
             Titel = titel;
             Score = score;
             Acteurs = acteurs;
@@ -149,19 +147,17 @@ namespace BackEndRemiMestdagh.Models
 
 
         //todo sorteren zodat de beste match eerst komt
-        public List<Film> GetBestRecommendations(IEnumerable<Film> films)
+        public List<Film> GetBestRecommendations(IEnumerable<Film> films,List<Film>favorieten)
         {
             List<KeyValuePair<int, Film>> filmMatches = new List<KeyValuePair<int, Film>>();
             foreach (Film film in films)
             {
                 int aantalMatches = 0;
-                List<String> gelijkenissenString = new List<String>();
-                String gemeenschappelijkeRegisseur = "";
                 List<String> gemeenschappelijkeGenres = film.Genres.Intersect(this.Genres).Select(g => g.Genre.Naam).ToList();
                 List<String> gemeenschappelijkeActeurs = film.Acteurs.Intersect(this.Acteurs).Select(a => a.Acteur.Naam).ToList();
-                if (Regisseur == film.Regisseur)
+                if (Regisseur.Naam.Equals(film.Regisseur.Naam))
                 {
-                    gemeenschappelijkeRegisseur = Regisseur.Naam;
+                    aantalMatches++;
                 }
                 foreach (String genre in gemeenschappelijkeGenres)
                 {
@@ -171,15 +167,14 @@ namespace BackEndRemiMestdagh.Models
                 {
                     aantalMatches++;
                 }
-                if (String.IsNullOrWhiteSpace(gemeenschappelijkeRegisseur))
-                {
-                    aantalMatches++;
-                }
+
                 filmMatches.Add(new KeyValuePair<int, Film>(aantalMatches, film));
+
+
             }
             int meesteMatches = filmMatches.Select(s => s.Key).Max();
             List<Film> besteMatches = filmMatches.Where(s => s.Key == meesteMatches).Select(s => s.Value).ToList();
-            return besteMatches;
+            return besteMatches.Except(favorieten).ToList();
         }
     }
 

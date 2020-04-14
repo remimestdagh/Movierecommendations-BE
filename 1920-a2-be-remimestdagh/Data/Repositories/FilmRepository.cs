@@ -22,7 +22,7 @@ namespace BackEndRemiMestdagh.Data.Repositories
 
         public IEnumerable<Film> GetAll()
         {
-            return _films.ToList();
+            return _films.Include(f=>f.Regisseur).ToList();
         }
 
         public Film GetById(int id)

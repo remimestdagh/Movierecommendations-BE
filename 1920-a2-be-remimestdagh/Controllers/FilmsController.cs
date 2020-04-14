@@ -55,7 +55,8 @@ namespace BackEndRemiMestdagh.Controllers
         public IEnumerable<Film> GetBestRecommendationsForFilm(Film film)
         {
             Customer customer = _customerRepository.GetByEmail(User.Identity.Name);
-            return film.GetBestRecommendations(_filmRepository.GetAll());
+
+            return film.GetBestRecommendations(_filmRepository.GetAll(),customer.Films.ToList());
 
         }
         [HttpGet("GetRecommendBasedOnFavourites")]
@@ -66,7 +67,7 @@ namespace BackEndRemiMestdagh.Controllers
             List<Film> favouritesCurrentUser = customer.GetFavouriteFilms();
             foreach (Film film in favouritesCurrentUser)
             {
-                recommendations.AddRange(film.GetBestRecommendations(_filmRepository.GetAll()));
+                recommendations.AddRange(film.GetBestRecommendations(_filmRepository.GetAll(),favouritesCurrentUser));
             }
             return recommendations;
 

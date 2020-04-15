@@ -32,7 +32,7 @@ namespace BackEndRemiMestdagh.Data.Repositories
 
         public Film GetById(int id)
         {
-            return _films.FirstOrDefault(f => f.Id == id);
+            return _films.Include(g => g.Genres).ThenInclude(g => g.Genre).Include(g => g.Acteurs).ThenInclude(g => g.Acteur).Include(f => f.Regisseur).FirstOrDefault(f => f.Id == id);
         }
 
     } 

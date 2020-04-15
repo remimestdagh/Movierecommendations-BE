@@ -33,17 +33,25 @@ namespace BackEndRemiMestdagh.Controllers
             {
                 string[] genres = film.Genres.Select(g => g.Genre.Naam).ToArray();
                 string[] acteurs = film.Acteurs.Select(g => g.Acteur.Naam).ToArray();
-                dtos.Add(new FilmDTO() {Id=film.Id, Titel = film.Titel, Score = film.Score, Regisseur = film.Regisseur.Naam, Genres = genres, Acteurs = acteurs, TitleImage = film.TitleImage, Runtime = film.Runtime, Year = film.Year });
+                dtos.Add(new FilmDTO() {Id=film.Id, Titel = film.Titel,  Regisseur = film.Regisseur.Naam, TitleImage = film.TitleImage, Year = film.Year });
             }
             return dtos;
            // return _filmRepository.GetAll().OrderByDescending(r => r.Score);
         }
 
         [HttpGet("GetFavourites")]
-        public IEnumerable<Film> GetCustomersFavourites()
+        public IEnumerable<FilmDTO> GetCustomersFavourites()
         {
             Customer customer = _customerRepository.GetByEmail2(User.Identity.Name);
-            return customer.Films;
+            List<Film> films = customer.Films.ToList();
+            List<FilmDTO> dtos = new List<FilmDTO>();
+            foreach (Film film in films)
+            {
+                string[] genres = film.Genres.Select(g => g.Genre.Naam).ToArray();
+                string[] acteurs = film.Acteurs.Select(g => g.Acteur.Naam).ToArray();
+                dtos.Add(new FilmDTO() { Id = film.Id, Titel = film.Titel, Regisseur = film.Regisseur.Naam, TitleImage = film.TitleImage, Year = film.Year });
+            }
+            return dtos;
         }
 
         [HttpDelete("{id}")]
@@ -122,11 +130,17 @@ namespace BackEndRemiMestdagh.Controllers
 
 
         [HttpGet("{id}")]
-        public ActionResult<Film> GetFilm(int id)
+        public ActionResult<FilmDTO> GetFilm(int id)
         {
             Film film = _filmRepository.GetById(id);
-            if (film == null) return NotFound();
-            return film;
+            if (film == null)
+            {
+                return NotFound();
+            }
+            string[] genres = film.Genres.Select(g => g.Genre.Naam).ToArray();
+            string[] acteurs = film.Acteurs.Select(g => g.Acteur.Naam).ToArray();
+            FilmDTO dto = new FilmDTO() { Id = film.Id, Titel = film.Titel, Score = film.Score, Regisseur = film.Regisseur.Naam, Genres = genres, Acteurs = acteurs, TitleImage = film.TitleImage, Runtime = film.Runtime, Year = film.Year };
+            return dto;
         }
 
 }

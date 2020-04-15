@@ -112,7 +112,15 @@ namespace BackEndRemiMestdagh.Controllers
                 return BadRequest();
             }
             Film film = _filmRepository.GetById(id);
-            customer.AddToFavourites(film);
+            try
+            {
+                customer.AddToFavourites(film);
+            }
+            catch(Exception e)
+            {
+                
+            }
+            
             _customerRepository.SaveChanges();
             return Ok();
 

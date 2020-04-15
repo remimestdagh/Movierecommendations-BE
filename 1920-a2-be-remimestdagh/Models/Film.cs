@@ -138,7 +138,7 @@ namespace BackEndRemiMestdagh.Models
             }
             int meesteMatches = filmMatches.Select(s => s.Key).Max();
             List<Film> besteMatches = filmMatches.Where(s => s.Key == meesteMatches).Select(s => s.Value).ToList();
-            return besteMatches.Except(favorieten).ToList();
+            return besteMatches.Except(favorieten).ToHashSet().ToList();
         }
     }
 

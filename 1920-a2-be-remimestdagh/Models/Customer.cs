@@ -32,6 +32,10 @@ namespace BackEndRemiMestdagh.Data.Models
         #region methods
        public void AddToFavourites(Film film)
         {
+            if (FavorieteFilms.Select(f => f.Film).Contains(film))
+            {
+                throw new ArgumentException("De film staat al in de favorieten");
+            }
             FavorieteFilms.Add(new CustomerFilm() { Film = film, FilmId = film.Id, Klant = this, CustomerId = this.CustomerId });
         }
         public void RemoveFavourite(Film film)

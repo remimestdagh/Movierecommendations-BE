@@ -9,6 +9,7 @@ namespace BackEndRemiMestdagh.Models
     public interface IFilmRepository
     {
         IEnumerable<Film> GetAll();
+        IEnumerable<Film> Get100();
         Film GetById(int id);
         
     }

@@ -27,7 +27,7 @@ namespace BackEndRemiMestdagh.Controllers
         [HttpGet("GetFilms")]
         public IEnumerable<FilmDTO> GetFilms()
         {
-            List<Film> films = _filmRepository.GetAll().OrderByDescending(r => r.Score).ToList();
+            List<Film> films = _filmRepository.Get100().OrderByDescending(r => r.Score).ToList();
             List<FilmDTO> dtos = new List<FilmDTO>();
             foreach(Film film in films)
             {

@@ -29,7 +29,7 @@ namespace BackEndRemiMestdagh.Data
             if (_context.Database.EnsureCreated())
             {
                 
-                using (StreamReader r = new StreamReader(@"C:\Users\Remi\Source\Repos\Web-IV\1920-a2-be-remimestdagh\1920-a2-be-remimestdagh\Data\json\films2000metId.json"))
+                using (StreamReader r = new StreamReader(@"C:\Users\Remi\Source\Repos\Web-IV\1920-a2-be-remimestdagh\1920-a2-be-remimestdagh\Data\json\filmsWithPosters.json"))
                 {
                     string json = r.ReadToEnd();
 

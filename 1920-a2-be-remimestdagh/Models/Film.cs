@@ -103,50 +103,7 @@ namespace BackEndRemiMestdagh.Models
             Year = year;
         }
 
-        /*
-        public List<KeyValuePair<List<String>, Film>> GetRecommendations(IEnumerable<Film> films)
-        {
-            //teller die kijkt hoeveel overeenkomsten er zijn
-
-            List<KeyValuePair<List<String>, Film>> gelijkenissen = new List<KeyValuePair<List<String>, Film>>();
-            List<String> gelijkenissenStrings = new List<String>();
-            Film dezeFilm = films.Single(f => f.ImdbId == this.ImdbId);
-            films.ToList().Remove(dezeFilm);
-            foreach (Film film in films)
-            {
-
-
-                List<String> gelijkenissenString = new List<String>();
-                String gemeenschappelijkeRegisseur = "";
-                List<String> gemeenschappelijkeGenres = film.Genres.Intersect(this.Genres).Select(g => g.Genre.Naam).ToList();
-                List<String> gemeenschappelijkeActeurs = film.Acteurs.Intersect(this.Acteurs).Select(a => a.Acteur.Naam).ToList();
-                if (Regisseur == film.Regisseur)
-                {
-                    gemeenschappelijkeRegisseur = Regisseur.Naam;
-                }
-                foreach (String genre in gemeenschappelijkeGenres)
-                {
-
-                    gelijkenissenString.Add(genre);
-                }
-                foreach (String acteur in gemeenschappelijkeActeurs)
-                {
-
-                    gelijkenissenString.Add(acteur);
-                }
-                if (String.IsNullOrWhiteSpace(gemeenschappelijkeRegisseur))
-                {
-
-                    gelijkenissenString.Add(gemeenschappelijkeRegisseur);
-                }
-                KeyValuePair<List<String>, Film> filmMetGelijkenissen = new KeyValuePair<List<string>, Film>(gelijkenissenString, film);
-                gelijkenissen.Add(filmMetGelijkenissen);
-            }
-            return gelijkenissen;
-        }*/
-
-
-        //todo sorteren zodat de beste match eerst komt
+       
         public List<Film> GetBestRecommendations(IEnumerable<Film> films, List<Film> favorieten)
         {
             List<KeyValuePair<int, Film>> filmMatches = new List<KeyValuePair<int, Film>>();

@@ -48,6 +48,14 @@ namespace BackEndRemiMestdagh.Data.Models
         {
             return FavorieteFilms.Select(f => f.Film).ToList();
         }
+        public bool IsFavourite(Film film)
+        {
+            if (Films.Contains(film))
+            {
+                return true;
+            }
+            return false;
+        }
 
         #endregion
 

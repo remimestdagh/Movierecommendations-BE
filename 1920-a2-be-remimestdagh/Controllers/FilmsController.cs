@@ -27,13 +27,16 @@ namespace BackEndRemiMestdagh.Controllers
         [HttpGet("GetFilms")]
         public IEnumerable<FilmDTO> GetFilms()
         {
+            Customer customer = _customerRepository.GetByEmail(User.Identity.Name);
+            
             List<Film> films = _filmRepository.Get100().OrderByDescending(r => r.Score).ToList();
             List<FilmDTO> dtos = new List<FilmDTO>();
             foreach(Film film in films)
             {
+                bool isFav = customer.IsFavourite(film);
                 string[] genres = film.Genres.Select(g => g.Genre.Naam).ToArray();
                 string[] acteurs = film.Acteurs.Select(g => g.Acteur.Naam).ToArray();
-                dtos.Add(new FilmDTO() {Id=film.Id, Titel = film.Titel,  Regisseur = film.Regisseur.Naam, TitleImage = film.TitleImage, Year = film.Year });
+                dtos.Add(new FilmDTO() {Id=film.Id, Titel = film.Titel,  Regisseur = film.Regisseur.Naam, TitleImage = film.TitleImage, Year = film.Year, IsFavourite = isFav });
             }
             return dtos;
            // return _filmRepository.GetAll().OrderByDescending(r => r.Score);
@@ -49,7 +52,7 @@ namespace BackEndRemiMestdagh.Controllers
             {
                 string[] genres = film.Genres.Select(g => g.Genre.Naam).ToArray();
                 string[] acteurs = film.Acteurs.Select(g => g.Acteur.Naam).ToArray();
-                dtos.Add(new FilmDTO() { Id = film.Id, Titel = film.Titel, Regisseur = film.Regisseur.Naam, TitleImage = film.TitleImage, Year = film.Year });
+                dtos.Add(new FilmDTO() { Id = film.Id, Titel = film.Titel, Regisseur = film.Regisseur.Naam, TitleImage = film.TitleImage, Year = film.Year, IsFavourite=true });
             }
             return dtos;
         }

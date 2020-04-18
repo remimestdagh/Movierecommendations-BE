@@ -42,6 +42,26 @@ namespace BackEndRemiMestdagh.Controllers
            // return _filmRepository.GetAll().OrderByDescending(r => r.Score);
         }
 
+        [AllowAnonymous] //dit moet nog veranderd worden
+        [HttpGet("GetNextFilms")]
+        public IEnumerable<FilmDTO> GetNextFilms(string skip)
+        {
+            int getal = Int32.Parse(skip);
+            Customer customer = _customerRepository.GetByEmail(User.Identity.Name);
+
+            List<Film> films = _filmRepository.GetSpecified(getal).OrderByDescending(r => r.Score).ToList();
+            List<FilmDTO> dtos = new List<FilmDTO>();
+            foreach (Film film in films)
+            {
+                bool isFav = customer.IsFavourite(film);
+                string[] genres = film.Genres.Select(g => g.Genre.Naam).ToArray();
+                string[] acteurs = film.Acteurs.Select(g => g.Acteur.Naam).ToArray();
+                dtos.Add(new FilmDTO() { Id = film.Id, Titel = film.Titel, Regisseur = film.Regisseur.Naam, TitleImage = film.TitleImage, Year = film.Year, IsFavourite = isFav });
+            }
+            return dtos;
+            // return _filmRepository.GetAll().OrderByDescending(r => r.Score);
+        }
+
         [HttpGet("GetFavourites")]
         public IEnumerable<FilmDTO> GetCustomersFavourites()
         {

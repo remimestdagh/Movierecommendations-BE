@@ -31,7 +31,7 @@ namespace BackEndRemiMestdagh.Data.Repositories
         }
         public IEnumerable<Film> Get100()
         {
-            List<Film> films = _films.Include(g => g.Genres).ThenInclude(g => g.Genre).Include(g => g.Acteurs).ThenInclude(g => g.Acteur).Include(f => f.Regisseur).Take(100).ToList();
+            List<Film> films = _films.Include(g => g.Genres).ThenInclude(g => g.Genre).Include(g => g.Acteurs).ThenInclude(g => g.Acteur).Include(f => f.Regisseur).Take(200).ToList();
             if (films == null || films.Count == 0)
             {
                 throw new ArgumentException("Het aantal films kon niet opgehaald worden");
@@ -44,5 +44,14 @@ namespace BackEndRemiMestdagh.Data.Repositories
             return _films.Include(g => g.Genres).ThenInclude(g => g.Genre).Include(g => g.Acteurs).ThenInclude(g => g.Acteur).Include(f => f.Regisseur).FirstOrDefault(f => f.Id == id);
         }
 
+        public IEnumerable<Film> GetSpecified(int skip)
+        {
+            List<Film> films = _films.Include(g => g.Genres).ThenInclude(g => g.Genre).Include(g => g.Acteurs).ThenInclude(g => g.Acteur).Include(f => f.Regisseur).Skip(skip).Take(100).ToList();
+            if (films == null || films.Count == 0)
+            {
+                throw new ArgumentException("Het aantal films kon niet opgehaald worden");
+            }
+            return films;
+        }
     } 
 }

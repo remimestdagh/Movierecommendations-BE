@@ -10,6 +10,7 @@ namespace BackEndRemiMestdagh.Models
     {
         IEnumerable<Film> GetAll();
         IEnumerable<Film> Get100();
+        IEnumerable<Film> GetSpecified(int skip);
         Film GetById(int id);
         
     }

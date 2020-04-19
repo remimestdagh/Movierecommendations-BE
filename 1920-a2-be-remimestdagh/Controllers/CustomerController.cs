@@ -4,6 +4,7 @@ using BackEndRemiMestdagh.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 
 namespace BackEndRemiMestdagh.Controllers
@@ -25,7 +26,15 @@ namespace BackEndRemiMestdagh.Controllers
         [HttpGet()]
         public ActionResult<CustomerDTO> GetCustomer()
         {
-            Customer customer = _customerRepository.GetByEmail(User.Identity.Name);
+            Customer customer = null;
+            try
+            {
+               customer = _customerRepository.GetByEmail(User.Identity.Name);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+            }
             return new CustomerDTO(customer);
         }
 

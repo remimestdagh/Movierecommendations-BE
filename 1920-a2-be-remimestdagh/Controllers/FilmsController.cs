@@ -155,7 +155,16 @@ namespace BackEndRemiMestdagh.Controllers
         [HttpGet("Favorites")]
         public IEnumerable<Film> GetFavorites()
         {
-            Customer customer = _customerRepository.GetByEmail(User.Identity.Name);
+            Customer customer=null;
+            try
+            {
+               customer  = _customerRepository.GetByEmail(User.Identity.Name);
+
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+            }
             return customer.FavorieteFilms.Select(f => f.Film).ToList();
         }
 
@@ -164,7 +173,7 @@ namespace BackEndRemiMestdagh.Controllers
         public ActionResult<FilmDTO> GetFilm(int id)
         {
             Film film = _filmRepository.GetById(id);
-            if (film == null)
+            if (film is null)
             {
                 return NotFound();
             }

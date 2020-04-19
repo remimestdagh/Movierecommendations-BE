@@ -20,11 +20,17 @@ namespace BackEndRemiMestdagh.Data.Repositories
         }
         public Customer GetByEmail(string email)
         {
-            return _customers
-                .Include(c => c.FavorieteFilms).ThenInclude(f => f.Film).ThenInclude(g=>g.Genres).ThenInclude(m=>m.Genre)
-                .Include(a=>a.FavorieteFilms).ThenInclude(j => j.Film).ThenInclude(h => h.Acteurs).ThenInclude(l => l.Acteur)
+            Customer customer = _customers
+                .Include(c => c.FavorieteFilms).ThenInclude(f => f.Film).ThenInclude(g => g.Genres).ThenInclude(m => m.Genre)
+                .Include(a => a.FavorieteFilms).ThenInclude(j => j.Film).ThenInclude(h => h.Acteurs).ThenInclude(l => l.Acteur)
                 .Include(a => a.FavorieteFilms).ThenInclude(j => j.Film).ThenInclude(h => h.Regisseur)
                 .Where(k => k.Email.Equals(email)).FirstOrDefault();
+
+            if (customer == null)
+            {
+                throw new ArgumentException("Gebruiker niet gevonden");
+            }
+            return customer;
             
         }
         public Customer GetByEmail2(string email)

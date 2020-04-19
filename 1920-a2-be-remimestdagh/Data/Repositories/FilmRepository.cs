@@ -53,5 +53,16 @@ namespace BackEndRemiMestdagh.Data.Repositories
             }
             return films;
         }
+
+        public IEnumerable<Film> SearchFilms(string zoekString)
+        {
+            List<Film> films = _films.Include(g => g.Genres).ThenInclude(g => g.Genre)
+                .Include(g => g.Acteurs).ThenInclude(g => g.Acteur).Include(f => f.Regisseur).Where(a=>a.Titel.Contains(zoekString)).ToList();
+            if (films == null || films.Count == 0)
+            {
+                throw new ArgumentException("Het aantal films kon niet opgehaald worden");
+            }
+            return films;
+        }
     } 
 }

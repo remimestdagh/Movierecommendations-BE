@@ -1,6 +1,8 @@
 ﻿using BackEndRemiMestdagh.Models;
 using BackEndRemiMestdaghTest.Data;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace BackEndRemiMestdaghTest.Models
@@ -64,6 +66,33 @@ namespace BackEndRemiMestdaghTest.Models
         public void NegatieveOfVerkeerdeWaardeJaartalGeeftException(int jaartal)
         {
             Assert.Throws<ArgumentException>(() => _context.film1.Year = jaartal);
+
+        }
+
+        [Fact]
+        public void FilmAanMaken()
+        {
+            Film film = new Film()
+            {
+                Titel = "Kaasmovie",
+                Score = 100,
+
+                TitleImage = "poster.png",
+                Runtime = 95,
+                Year = 1997
+            };
+            Assert.Equal("Kaasmovie", film.Titel);
+            Assert.Equal(100, film.Score);
+            Assert.Equal("poster.png", film.TitleImage);
+            Assert.Equal(95, film.Runtime);
+            Assert.Equal(1997, film.Year);
+
+        }
+        [Fact]
+        public void GetBestRecommendationsGeeftLijstTerug()
+        {
+            List<Film> recommendations = _context.film1.GetBestRecommendations(_context.alleFilms, _context.customer1.Films.ToList());
+            Assert.NotEmpty(recommendations);
 
         }
 

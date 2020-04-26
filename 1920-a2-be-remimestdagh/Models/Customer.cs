@@ -7,16 +7,61 @@ namespace BackEndRemiMestdagh.Data.Models
 {
     public class Customer
     {
+        private string _firstName;
+        private string _lastName;
+        private string _email;
 
         #region Properties
         //add extra properties if needed
         public int CustomerId { get; set; }
 
-        public string FirstName { get; set; }
+        public string FirstName
+        {
+            get { return _firstName; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Firstname can't be empty");
+                }
+                else
+                {
+                    this._firstName = value;
+                }
+            }
+        }
 
-        public string LastName { get; set; }
+        public string LastName
+        {
+            get { return _lastName; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Lastname can't be empty");
+                }
+                else
+                {
+                    this._lastName = value;
+                }
+            }
+        }
 
-        public string Email { get; set; }
+        public string Email
+        {
+            get { return _email; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Lastname can't be empty");
+                }
+                else
+                {
+                    this._email = value;
+                }
+            }
+        }
         public ICollection<CustomerFilm> FavorieteFilms { get; private set; }
         public IEnumerable<Film> Films => FavorieteFilms.Select(f => f.Film);
 
@@ -30,7 +75,7 @@ namespace BackEndRemiMestdagh.Data.Models
         #endregion
 
         #region methods
-       public void AddToFavourites(Film film)
+        public void AddToFavourites(Film film)
         {
             if (FavorieteFilms.Select(f => f.Film).Contains(film))
             {

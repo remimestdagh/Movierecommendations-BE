@@ -29,15 +29,6 @@ namespace BackEndRemiMestdagh.Data.Repositories
             }
             return films;
         }
-        public IEnumerable<Film> Get100()
-        {
-            List<Film> films = _films.Include(g => g.Genres).ThenInclude(g => g.Genre).Include(g => g.Acteurs).ThenInclude(g => g.Acteur).Include(f => f.Regisseur).Take(200).ToList();
-            if (films == null || films.Count == 0)
-            {
-                throw new ArgumentException("Het aantal films kon niet opgehaald worden");
-            }
-            return films;
-        }
 
         public Film GetById(int id)
         {

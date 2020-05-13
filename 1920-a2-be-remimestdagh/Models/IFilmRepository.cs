@@ -9,7 +9,6 @@ namespace BackEndRemiMestdagh.Models
     public interface IFilmRepository
     {
         IEnumerable<Film> GetAll();
-        IEnumerable<Film> Get100();
         IEnumerable<Film> GetSpecified(int skip);
         Film GetById(int id);
         IEnumerable<Film> SearchFilms(string zoekString);

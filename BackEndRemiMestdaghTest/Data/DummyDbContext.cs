@@ -16,12 +16,14 @@ namespace BackEndRemiMestdaghTest.Data
         public Film film5 { get; set; }
         public Film film6 { get; set; }
         public Film film3 { get; set; }
+        public Film film7 { get; set; }
         public List<Film> alleFilms { get; set; }
         public Acteur acteur1 { get; set; }
         public Regisseur regisseur1 { get; set; }
         public Genre genre1 { get; set; }
         public Customer customer1 { get; set; }
         public Customer customer2 { get; set; }
+        public List<Film> zoekResult { get; set; }
 
         public DummyDbContext()
         {
@@ -83,8 +85,18 @@ namespace BackEndRemiMestdaghTest.Data
             };
             film6 = new Film()
             {
-                Titel = "Kill Bill 2",
+                Titel = "Quite Frankly",
                 Id = 6,
+                Score = 67,
+                Regisseur = regisseur1,
+                TitleImage = "foto.png",
+                Runtime = 200,
+                Year = 1998
+            };
+            film7 = new Film()
+            {
+                Titel = "Big Animals",
+                Id = 69,
                 Score = 67,
                 Regisseur = regisseur1,
                 TitleImage = "foto.png",
@@ -94,6 +106,8 @@ namespace BackEndRemiMestdaghTest.Data
             alleFilms = new List<Film>();
             alleFilms.AddRange(new Film[] {film1,film2,film3,film4,film5,film6 });
             List<CustomerFilm> favorieteFilmsCustomer1 = new List<CustomerFilm>();
+            zoekResult = new List<Film>();
+            zoekResult.AddRange(new Film[] { film1, film2, film3 });
             
             customer1 = new Customer() { Email = "henk@kaas.be",CustomerId=1,FirstName="Henk",LastName="Kaas" };
             customer1.AddToFavourites(film1); 

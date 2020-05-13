@@ -92,14 +92,6 @@ namespace BackEndRemiMestdagh.Controllers
 
         }
 
-        [HttpGet("GetRecommendForFilm")]
-        public IEnumerable<Film> GetBestRecommendationsForFilm(Film film)
-        {
-            Customer customer = _customerRepository.GetByEmail(User.Identity.Name);
-
-            return film.GetBestRecommendations(_filmRepository.GetAll(), customer.Films.ToList());
-
-        }
         [HttpGet("GetRecommendBasedOnFavourites")]
         public IEnumerable<FilmDTO> GetRecommendationsForAllUserFavourites()
         {

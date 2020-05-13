@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BackEndRemiMestdagh.Models.Acteur">
+    <Position X="1.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Models\Acteur.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackEndRemiMestdagh.Models.ActeurFilm">
+    <Position X="6.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAiEAAAA=</HashCode>
+      <FileName>Models\ActeurFilm.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Acteur" />
+      <Property Name="Film" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="BackEndRemiMestdagh.Models.CustomerFilm">
+    <Position X="2.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAABBAAAAAAAgAAAAA=</HashCode>
+      <FileName>Models\CustomerFilm.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Film" />
+      <Property Name="Klant" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="BackEndRemiMestdagh.Models.Film">
+    <Position X="6.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACIAgCBgAAQggACAIAAAIAAACAAgAAAAAAAAAQAAA=</HashCode>
+      <FileName>Models\Film.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Regisseur" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Acteurs" />
+      <Property Name="Genres" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="BackEndRemiMestdagh.Models.Genre">
+    <Position X="8.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Models\Genre.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackEndRemiMestdagh.Models.GenreFilm">
+    <Position X="8.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAIAAAAAAAAABAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Models\GenreFilm.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Film" />
+      <Property Name="Genre" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="BackEndRemiMestdagh.Models.Regisseur">
+    <Position X="0.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Models\Regisseur.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BackEndRemiMestdagh.Data.Models.Customer">
+    <Position X="4.25" Y="2.5" Width="1.5" />
+    <AssociationLine Name="Films" Type="BackEndRemiMestdagh.Models.Film" ManuallyRouted="true">
+      <Path>
+        <Point X="5.75" Y="3.774" />
+        <Point X="6.25" Y="3.774" />
+        <Point X="6.25" Y="3.84" />
+        <Point X="6.75" Y="3.84" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAEAAEAAACAAAAAAAAEAAAAAAAQAADAAYAAAgAAAgAk=</HashCode>
+      <FileName>Models\Customer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Films" />
+      <Property Name="FavorieteFilms" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Interface Name="BackEndRemiMestdagh.Models.IFilmRepository">
+    <Position X="11.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAhAAAIAAAIA=</HashCode>
+      <FileName>Models\IFilmRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="BackEndRemiMestdagh.Controllers.ICustomerRepository">
+    <Position X="11.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAIAAAAAAAAAAAAAAAAAAAAAAACAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Models\ICustomerRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

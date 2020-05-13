@@ -1,6 +1,16 @@
 # Remi Mestdagh klas 2a2 Movie recommendations
-## Requirements backend Web IV
+Welkom op de GitHub pagina van de movie recommendations applicatie! Deze repository bevat de backend.
 
+## klassendiagram
+![alt text]( https://github.com/Web-IV/1920-a2-be-remimestdagh/blob/master/screenshots/klassendiagram.png "klassendiagram")
+## swagger
+![alt text]( https://github.com/Web-IV/1920-a2-be-remimestdagh/blob/master/screenshots/swagger.png "swagger documentatie")
+Meer info over deze endpoints kan u terugvinden in het dossier.
+
+
+
+
+## Requirements backend Web IV
 
 - [x] Printscreen van de API zoals weergegeven in swagger. Per endpoint een printscreen van de parameters en de responses
 

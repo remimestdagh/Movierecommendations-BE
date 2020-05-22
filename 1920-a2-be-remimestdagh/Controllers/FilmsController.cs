@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BackEndRemiMestdagh.Data.Models;
 using BackEndRemiMestdagh.DTOs;
 using BackEndRemiMestdagh.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@ namespace BackEndRemiMestdagh.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class FilmsController : ControllerBase
     {
         private readonly IFilmRepository _filmRepository;
@@ -24,7 +26,7 @@ namespace BackEndRemiMestdagh.Controllers
             _customerRepository = customerRepository;
         }
 
-        [AllowAnonymous] //dit moet nog veranderd worden
+        //[AllowAnonymous] //dit moet nog veranderd worden
         [HttpGet("GetNextFilms")]
         public IEnumerable<FilmDTO> GetNextFilms(string skip)
         {

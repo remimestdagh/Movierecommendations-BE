@@ -1,6 +1,8 @@
 # Remi Mestdagh klas 2a2 Movie recommendations
 Welkom op de GitHub pagina van de movie recommendations applicatie! Deze repository bevat de backend.
 
+De benodigde json om de databank te initialiseren bevindt zich in de map json. Deze dien je dan te selecteren in de initializer. In de startup dien je dan die methode van de initializer te callen.
+
 ## klassendiagram
 ![alt text]( https://github.com/Web-IV/1920-a2-be-remimestdagh/blob/master/screenshots/klassendiagram.png "klassendiagram")
 ## swagger

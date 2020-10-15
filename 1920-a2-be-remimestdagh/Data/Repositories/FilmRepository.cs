@@ -20,9 +20,9 @@ namespace BackEndRemiMestdagh.Data.Repositories
             _films = dbContext.Films;
         }
 
-        public IEnumerable<Film> GetAll()
+        public async Task<List<Film>> GetAll()
         {
-            List<Film> films = _films.Include(g => g.Genres).ThenInclude(g => g.Genre).Include(g => g.Acteurs).ThenInclude(g => g.Acteur).Include(f => f.Regisseur).ToList();
+            List<Film> films = await _films.Include(g => g.Genres).ThenInclude(g => g.Genre).Include(g => g.Acteurs).ThenInclude(g => g.Acteur).Include(f => f.Regisseur).ToListAsync();
             if(films==null || films.Count == 0)
             {
                 throw new ArgumentException("Het aantal films kon niet opgehaald worden");
@@ -30,14 +30,14 @@ namespace BackEndRemiMestdagh.Data.Repositories
             return films;
         }
 
-        public Film GetById(int id)
+        public async Task<Film> GetById(int id)
         {
-            return _films.Include(g => g.Genres).ThenInclude(g => g.Genre).Include(g => g.Acteurs).ThenInclude(g => g.Acteur).Include(f => f.Regisseur).FirstOrDefault(f => f.Id == id);
+            return await _films.Include(g => g.Genres).ThenInclude(g => g.Genre).Include(g => g.Acteurs).ThenInclude(g => g.Acteur).Include(f => f.Regisseur).FirstOrDefaultAsync(f => f.Id == id);
         }
 
-        public IEnumerable<Film> GetSpecified(int skip)
+        public async Task< List<Film>> GetSpecified(int skip)
         {
-            List<Film> films = _films.Include(g => g.Genres).ThenInclude(g => g.Genre).Include(g => g.Acteurs).ThenInclude(g => g.Acteur).Include(f => f.Regisseur).Skip(skip).Take(100).ToList();
+            List<Film> films = await _films.Include(g => g.Genres).ThenInclude(g => g.Genre).Include(g => g.Acteurs).ThenInclude(g => g.Acteur).Include(f => f.Regisseur).Skip(skip).Take(100).ToListAsync();
             if (films == null || films.Count == 0)
             {
                 throw new ArgumentException("Het aantal films kon niet opgehaald worden");
@@ -45,10 +45,10 @@ namespace BackEndRemiMestdagh.Data.Repositories
             return films;
         }
 
-        public IEnumerable<Film> SearchFilms(string zoekString)
+        public async Task<List<Film>> SearchFilms(string zoekString)
         {
-            List<Film> films = _films.Include(g => g.Genres).ThenInclude(g => g.Genre)
-                .Include(g => g.Acteurs).ThenInclude(g => g.Acteur).Include(f => f.Regisseur).Where(a=>a.Titel.Contains(zoekString)).ToList();
+            List<Film> films = await _films.Include(g => g.Genres).ThenInclude(g => g.Genre)
+                .Include(g => g.Acteurs).ThenInclude(g => g.Acteur).Include(f => f.Regisseur).Where(a=>a.Titel.Contains(zoekString)).ToListAsync();
             if (films == null || films.Count == 0)
             {
                 throw new ArgumentException("Het aantal films kon niet opgehaald worden");

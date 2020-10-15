@@ -106,7 +106,7 @@ namespace BackEndRemiMestdagh.Models
        
         public List<Film> GetBestRecommendations(IEnumerable<Film> films, List<Film> favorieten)
         {
-            List<KeyValuePair<int, Film>> filmMatches = new List<KeyValuePair<int, Film>>();
+            List<KeyValuePair<Film, int>> filmMatches = new List<KeyValuePair<Film, int>>();
             foreach (Film film in films)
             {
                 int aantalMatches = 0;
@@ -132,12 +132,12 @@ namespace BackEndRemiMestdagh.Models
 
 
 
-                filmMatches.Add(new KeyValuePair<int, Film>(aantalMatches, film));
+                filmMatches.Add(new KeyValuePair<Film, int>(film, aantalMatches));
 
 
             }
-            int meesteMatches = filmMatches.Select(s => s.Key).Max();
-            List<Film> besteMatches = filmMatches.Where(s => s.Key == meesteMatches).Select(s => s.Value).ToList();
+            int meesteMatches = filmMatches.Select(s => s.Value).Max();
+            List<Film> besteMatches = filmMatches.Where(s => s.Value == meesteMatches |s.Value == meesteMatches-1).Select(s => s.Key).ToList();
             return besteMatches.Except(favorieten).ToHashSet().ToList();
         }
     }

@@ -1,17 +1,14 @@
-﻿using BackEndRemiMestdagh.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BackEndRemiMestdagh.Models
 {
     public interface IFilmRepository
     {
-        IEnumerable<Film> GetAll();
-        IEnumerable<Film> GetSpecified(int skip);
-        Film GetById(int id);
-        IEnumerable<Film> SearchFilms(string zoekString);
-        
+        Task<List<Film>> GetAll();
+        Task<List<Film>> GetSpecified(int skip);
+        Task<Film> GetById(int id);
+        Task<List<Film>> SearchFilms(string zoekString);
+
     }
 }

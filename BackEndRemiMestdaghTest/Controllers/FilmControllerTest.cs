@@ -87,7 +87,7 @@ namespace BackEndRemiMestdaghTest.Controllers
         {
             _filmRepository.Setup(s => s.GetAll()).Returns(_context.alleFilms);
             _customerRepository.Setup(s => s.GetByEmail("henk@kaas.be")).Returns(_context.customer1);
-            var films = Assert.IsAssignableFrom<IEnumerable<FilmDTO>>(_controller.GetRecommendationsForAllUserFavourites());
+            var films = Assert.IsAssignableFrom<IEnumerable<FilmDTO>>(_controller.GetRecommendationsForAllUserFavouritesAsync());
             Assert.Equal(5,films.ToList().Count);
         }
         [Fact]
@@ -95,7 +95,7 @@ namespace BackEndRemiMestdaghTest.Controllers
         {
             _filmRepository.Setup(s => s.SearchFilms("bill")).Returns(_context.zoekResult);
             _customerRepository.Setup(s => s.GetByEmail("henk@kaas.be")).Returns(_context.customer1);
-            var result = Assert.IsAssignableFrom<ActionResult<List<FilmDTO>>>(_controller.SearchFilm("bill"));
+            var result = Assert.IsAssignableFrom<ActionResult<List<FilmDTO>>>(_controller.SearchFilmAsync("bill"));
             var films = result.Value;
             Assert.Equal(3, films.Count);
         }

@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BackEndRemiMestdagh.Data.Models;
+﻿using BackEndRemiMestdagh.Data.Models;
 using BackEndRemiMestdagh.DTOs;
 using BackEndRemiMestdagh.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace BackEndRemiMestdagh.Controllers
 {
@@ -26,14 +25,13 @@ namespace BackEndRemiMestdagh.Controllers
             _customerRepository = customerRepository;
         }
 
-        //[AllowAnonymous] //dit moet nog veranderd worden
         [HttpGet("GetNextFilms")]
-        public IEnumerable<FilmDTO> GetNextFilms(string skip)
+        public async Task<IEnumerable<FilmDTO>> GetNextFilms(string skip)
         {
             int getal = Int32.Parse(skip);
             Customer customer = _customerRepository.GetByEmail(User.Identity.Name);
 
-            List<Film> films = _filmRepository.GetSpecified(getal).OrderByDescending(r => r.Score).ToList();
+            List<Film> films = await _filmRepository.GetSpecified(getal);
             List<FilmDTO> dtos = new List<FilmDTO>();
             foreach (Film film in films)
             {
@@ -62,9 +60,9 @@ namespace BackEndRemiMestdagh.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteFavourite([FromRoute] int id)
+        public async Task<IActionResult> DeleteFavourite([FromRoute] int id)
         {
-            Film film = _filmRepository.GetById(id);
+            Film film = await _filmRepository.GetById(id);
             if (film == null)
             {
                 return NotFound();
@@ -77,14 +75,14 @@ namespace BackEndRemiMestdagh.Controllers
         }
 
         [HttpGet("GetRecommendBasedOnFavourites")]
-        public IEnumerable<FilmDTO> GetRecommendationsForAllUserFavourites()
+        public async Task<IEnumerable<FilmDTO>> GetRecommendationsForAllUserFavouritesAsync()
         {
             List<Film> recommendations = new List<Film>();
             Customer customer = _customerRepository.GetByEmail(User.Identity.Name);
             List<Film> favouritesCurrentUser = customer.GetFavouriteFilms();
             foreach (Film film in favouritesCurrentUser)
             {
-                recommendations.AddRange(film.GetBestRecommendations(_filmRepository.GetAll(), favouritesCurrentUser));
+                recommendations.AddRange(film.GetBestRecommendations(await _filmRepository.GetAll(), favouritesCurrentUser));
             }
             List<FilmDTO> dtos = new List<FilmDTO>();
             foreach (Film film in recommendations)
@@ -98,10 +96,10 @@ namespace BackEndRemiMestdagh.Controllers
 
         }
         [HttpPost("{id}")]
-        public IActionResult AddToFavourites([FromRoute] int id)
+        public async Task<IActionResult> AddToFavourites([FromRoute] int id)
         {
 
-            if (_filmRepository.GetById(id) == null)
+            if (await _filmRepository.GetById(id) == null)
             {
                 return BadRequest();
             }
@@ -110,13 +108,14 @@ namespace BackEndRemiMestdagh.Controllers
             {
                 return BadRequest();
             }
-            Film film = _filmRepository.GetById(id);
+            Film film = await _filmRepository.GetById(id);
             try
             {
                 customer.AddToFavourites(film);
             }
             catch (Exception e)
             {
+                Console.WriteLine("Add to fav mislukt.");
 
             }
 
@@ -131,13 +130,13 @@ namespace BackEndRemiMestdagh.Controllers
         [HttpGet("Favorites")]
         public IEnumerable<Film> GetFavorites()
         {
-            Customer customer=null;
+            Customer customer = null;
             try
             {
-               customer  = _customerRepository.GetByEmail(User.Identity.Name);
+                customer = _customerRepository.GetByEmail(User.Identity.Name);
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.StackTrace);
             }
@@ -146,9 +145,9 @@ namespace BackEndRemiMestdagh.Controllers
 
 
         [HttpGet("{id}")]
-        public ActionResult<FilmDTO> GetFilm(int id)
+        public  async Task<ActionResult<FilmDTO>> GetFilm(int id)
         {
-            Film film = _filmRepository.GetById(id);
+            Film film = await _filmRepository.GetById(id);
             if (film is null)
             {
                 return NotFound();
@@ -159,15 +158,15 @@ namespace BackEndRemiMestdagh.Controllers
             return dto;
         }
         [HttpGet("{zoekString}/results")]
-        public ActionResult<List<FilmDTO>> SearchFilm(string zoekString)
+        public async Task<ActionResult<List<FilmDTO>>> SearchFilmAsync(string zoekString)
         {
             List<Film> films = new List<Film>();
             List<FilmDTO> dtos = new List<FilmDTO>();
             try
             {
-              films = _filmRepository.SearchFilms(zoekString).ToList();
+                films = await _filmRepository.SearchFilms(zoekString);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
 
             }
@@ -185,5 +184,5 @@ namespace BackEndRemiMestdagh.Controllers
 
         }
 
-}
+    }
 }

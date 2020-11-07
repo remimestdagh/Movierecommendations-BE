@@ -24,22 +24,19 @@ namespace BackEndRemiMestdagh.Data
 
         public async Task InitializeData()
         {
-            _context.Database.EnsureDeleted();
+            await _context.Database.EnsureDeletedAsync();
 
-            if (_context.Database.EnsureCreated())
+            if (await _context.Database.EnsureCreatedAsync())
             {
                 
-                using (StreamReader r = new StreamReader(@"C:\Users\Remi\Source\Repos\Web-IV\1920-a2-be-remimestdagh\1920-a2-be-remimestdagh\Data\json\filmsWithPosters.json"))
+                using (StreamReader r = new StreamReader(@"C:\Users\Remi Mestdagh\source\repos\Web-IV\1920-a2-be-remimestdagh\1920-a2-be-remimestdagh\Data\json\filmsWithPosters.json"))
                 {
-                    string json = r.ReadToEnd();
+                    string json = await r.ReadToEndAsync();
 
 
                     List<MockObject> films = JsonConvert.DeserializeObject<List<MockObject>>(json);
                  
-
-                    _context.Database.EnsureDeleted();
-                    if (_context.Database.EnsureCreated())
-                    {
+                    
 
 
                         HashSet<Film> deFilms = new HashSet<Film>();
@@ -69,7 +66,7 @@ namespace BackEndRemiMestdagh.Data
                             {
                                 regisseurVanFilm = new Regisseur(regisseurString);
                                 deRegisseur.Add(regisseurVanFilm);
-                                _context.Regisseurs.Add(regisseurVanFilm);
+                            await _context.Regisseurs.AddAsync(regisseurVanFilm);
                             }
 
 
@@ -116,7 +113,7 @@ namespace BackEndRemiMestdagh.Data
                                     acteur1 = new Acteur(acteur);
                                     acteurs.Add(acteur1);
                                     deActeursString.Add(acteur);
-                                    _context.Acteurs.Add(acteur1);
+                                await _context.Acteurs.AddAsync(acteur1);
                                 }
                                 acteursVanFilm.Add(acteur1);
                                 acteurFilms.Add(new ActeurFilm(nieuweFilm, acteur1));
@@ -135,7 +132,7 @@ namespace BackEndRemiMestdagh.Data
                                     saveGenre = new Genre(genre);
                                     genres.Add(saveGenre);
                                     deGenresString.Add(genre);
-                                    _context.Genres.Add(saveGenre);
+                                await _context.Genres.AddAsync(saveGenre);
                                 }
 
                                 genresVanFilm.Add(saveGenre);
@@ -145,16 +142,16 @@ namespace BackEndRemiMestdagh.Data
                             nieuweFilm.Acteurs = acteurFilms;
                             nieuweFilm.Genres = genreFilms;
                             deFilms.Add(nieuweFilm);
-                            _context.Films.Add(nieuweFilm);
+                        await _context.Films.AddAsync(nieuweFilm);
 
                         }
 
 
-                        _context.SaveChanges();
+                    await _context.SaveChangesAsync();
 
                         await InitializeUsers();
 
-                    }
+                    
 
                 }
 
@@ -173,9 +170,9 @@ namespace BackEndRemiMestdagh.Data
             await _userManager.CreateAsync(user, "P@ssword123");
 
 
-            _context.Customers.Add(customer);
-            _context.Customers.Add(student);
-            _context.SaveChanges();
+            await _context.Customers.AddAsync(customer);
+            await _context.Customers.AddAsync(student);
+            await _context.SaveChangesAsync();
         }
 
     }

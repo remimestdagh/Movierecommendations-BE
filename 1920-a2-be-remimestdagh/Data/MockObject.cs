@@ -8,6 +8,8 @@ namespace BackEndRemiMestdagh.Data
 {
     public class MockObject
     {
+        [JsonProperty("description")]
+        public string description { get; set; }
         [JsonProperty("titleImage")]
         public string titleImage { get; set; }
         [JsonProperty("titel")]

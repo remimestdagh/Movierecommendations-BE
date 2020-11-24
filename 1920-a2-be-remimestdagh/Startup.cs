@@ -132,7 +132,7 @@ namespace BackEndRemiMestdagh
                 endpoints.MapControllers();
             });
             app.UseCors("AllowAllOrigins");
-            initializer.InitializeData().Wait();
+            //initializer.InitializeData().Wait();
 
         }
     }

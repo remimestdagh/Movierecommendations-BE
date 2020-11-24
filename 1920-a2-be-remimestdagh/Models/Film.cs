@@ -13,6 +13,7 @@ namespace BackEndRemiMestdagh.Models
         private int _year;
 
         public int Id { get; set; }
+        public string Description { get; set; }
         public string Titel
         {
             get

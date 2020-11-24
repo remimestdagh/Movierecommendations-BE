@@ -29,7 +29,7 @@ namespace BackEndRemiMestdagh.Data
             if (await _context.Database.EnsureCreatedAsync())
             {
                 
-                using (StreamReader r = new StreamReader(@"C:\Users\Remi Mestdagh\source\repos\Web-IV\1920-a2-be-remimestdagh\1920-a2-be-remimestdagh\Data\json\filmsWithPosters.json"))
+                using (StreamReader r = new StreamReader(@"C:\Users\Remi Mestdagh\source\repos\remimestdagh\Movierecommendations-BE\1920-a2-be-remimestdagh\Data\json\fillmsWithDescriptionAndPoster2020.json"))
                 {
                     string json = await r.ReadToEndAsync();
 
@@ -89,6 +89,7 @@ namespace BackEndRemiMestdagh.Data
                             formattedRuntime = tempruntime[0];
                             double formattedScore = double.Parse(m.score, CultureInfo.InvariantCulture) * 10;
                             int formattedScore2 = Convert.ToInt32(formattedScore);
+                        Console.WriteLine(m.titel);
                             Film nieuweFilm = new Film()
                             {
                                 Titel = m.titel,
@@ -96,7 +97,8 @@ namespace BackEndRemiMestdagh.Data
                                 Regisseur = regisseurVanFilm,
                                 TitleImage = m.titleImage,
                                 Runtime = int.Parse(formattedRuntime),
-                                Year = int.Parse(m.year)
+                                Year = int.Parse(m.year),
+                                Description = m.description
 
                             };
                             List<ActeurFilm> acteurFilms = new List<ActeurFilm>();

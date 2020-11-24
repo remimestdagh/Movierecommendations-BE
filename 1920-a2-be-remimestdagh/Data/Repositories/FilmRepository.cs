@@ -37,7 +37,7 @@ namespace BackEndRemiMestdagh.Data.Repositories
 
         public async Task< List<Film>> GetSpecified(int skip)
         {
-            List<Film> films = await _films.Include(g => g.Genres).ThenInclude(g => g.Genre).Include(g => g.Acteurs).ThenInclude(g => g.Acteur).Include(f => f.Regisseur).Skip(skip).Take(100).ToListAsync();
+            List<Film> films = await _films.Include(g => g.Genres).ThenInclude(g => g.Genre).Include(g => g.Acteurs).ThenInclude(g => g.Acteur).Include(f => f.Regisseur).Skip(skip).Take(20).ToListAsync();
             if (films == null || films.Count == 0)
             {
                 throw new ArgumentException("Het aantal films kon niet opgehaald worden");

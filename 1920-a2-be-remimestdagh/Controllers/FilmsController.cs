@@ -123,6 +123,34 @@ namespace BackEndRemiMestdagh.Controllers
             return Ok();
 
         }
+        [HttpPost("AddToWatchlist/{id}")]
+        public async Task<IActionResult> AddToWatchlist([FromRoute]int id)
+        {
+            if (await _filmRepository.GetById(id) == null)
+            {
+                return BadRequest();
+            }
+            Customer customer = _customerRepository.GetByEmail(User.Identity.Name);
+            if (customer == null)
+            {
+                return BadRequest();
+            }
+            Film film = await _filmRepository.GetById(id);
+            try
+            {
+                customer.AddToWatchlist(film);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Add to fav mislukt.");
+
+            }
+
+            _customerRepository.SaveChanges();
+            return Ok();
+
+
+        }
 
 
 

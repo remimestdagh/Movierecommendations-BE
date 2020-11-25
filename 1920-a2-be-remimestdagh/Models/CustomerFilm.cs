@@ -12,7 +12,6 @@ namespace BackEndRemiMestdagh.Models
         public Customer Klant { get; set; }
         public int CustomerId { get; set; }
         public int FilmId { get; set; }
-       
-
+        public bool IsWatchlist { get; set; }
     }
 }

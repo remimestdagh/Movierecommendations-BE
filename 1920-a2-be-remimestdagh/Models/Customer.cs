@@ -77,11 +77,29 @@ namespace BackEndRemiMestdagh.Data.Models
         #region methods
         public void AddToFavourites(Film film)
         {
-            if (FavorieteFilms.Select(f => f.Film).Contains(film))
+            if (FavorieteFilms.Where(p=>p.IsWatchlist).Select(f => f.Film).Contains(film))
             {
-                throw new ArgumentException("De film staat al in de favorieten");
+                CustomerFilm f2 = FavorieteFilms.FirstOrDefault(f => f.FilmId == film.Id);
+                f2.IsWatchlist = false;
             }
-            FavorieteFilms.Add(new CustomerFilm() { Film = film, FilmId = film.Id, Klant = this, CustomerId = this.CustomerId });
+            else
+            {
+                FavorieteFilms.Add(new CustomerFilm() { Film = film, FilmId = film.Id, Klant = this, CustomerId = this.CustomerId, IsWatchlist = false });
+            }
+           
+        }
+        public void AddToWatchlist(Film film)
+        {
+            if (FavorieteFilms.Where(p=>!p.IsWatchlist).Select(f => f.Film).Contains(film))
+            {
+                CustomerFilm f2 = FavorieteFilms.FirstOrDefault(f => f.FilmId == film.Id);
+                f2.IsWatchlist = true;
+            }
+            else
+            {
+                FavorieteFilms.Add(new CustomerFilm() { Film = film, FilmId = film.Id, Klant = this, CustomerId = this.CustomerId, IsWatchlist = true });
+            }
+            
         }
         public void RemoveFavourite(Film film)
         {

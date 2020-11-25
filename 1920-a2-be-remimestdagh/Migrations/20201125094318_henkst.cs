@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BackEndRemiMestdagh.Migrations
 {
-    public partial class initial : Migration
+    public partial class henkst : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,11 +11,13 @@ namespace BackEndRemiMestdagh.Migrations
                 name: "Acteurs",
                 columns: table => new
                 {
-                    Naam = table.Column<string>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Naam = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Acteurs", x => x.Naam);
+                    table.PrimaryKey("PK_Acteurs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -76,11 +78,13 @@ namespace BackEndRemiMestdagh.Migrations
                 name: "Genres",
                 columns: table => new
                 {
-                    Naam = table.Column<string>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Naam = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Genres", x => x.Naam);
+                    table.PrimaryKey("PK_Genres", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -140,8 +144,8 @@ namespace BackEndRemiMestdagh.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
                 },
@@ -185,8 +189,8 @@ namespace BackEndRemiMestdagh.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    Name = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
                     Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -204,7 +208,9 @@ namespace BackEndRemiMestdagh.Migrations
                 name: "Films",
                 columns: table => new
                 {
-                    ImdbId = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(nullable: true),
                     Titel = table.Column<string>(nullable: false),
                     Score = table.Column<int>(nullable: false),
                     RegisseurNaam = table.Column<string>(nullable: true),
@@ -214,7 +220,7 @@ namespace BackEndRemiMestdagh.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Films", x => x.ImdbId);
+                    table.PrimaryKey("PK_Films", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Films_Regisseurs_RegisseurNaam",
                         column: x => x.RegisseurNaam,
@@ -227,8 +233,8 @@ namespace BackEndRemiMestdagh.Migrations
                 name: "ActeurFilms",
                 columns: table => new
                 {
-                    ActeurId = table.Column<string>(nullable: false),
-                    FilmId = table.Column<string>(nullable: false)
+                    ActeurId = table.Column<int>(nullable: false),
+                    FilmId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -237,13 +243,13 @@ namespace BackEndRemiMestdagh.Migrations
                         name: "FK_ActeurFilms_Acteurs_ActeurId",
                         column: x => x.ActeurId,
                         principalTable: "Acteurs",
-                        principalColumn: "Naam",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ActeurFilms_Films_FilmId",
                         column: x => x.FilmId,
                         principalTable: "Films",
-                        principalColumn: "ImdbId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -252,8 +258,8 @@ namespace BackEndRemiMestdagh.Migrations
                 columns: table => new
                 {
                     CustomerId = table.Column<int>(nullable: false),
-                    FilmId = table.Column<string>(nullable: false),
-                    CustomerId1 = table.Column<int>(nullable: true)
+                    FilmId = table.Column<int>(nullable: false),
+                    IsWatchlist = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -265,16 +271,10 @@ namespace BackEndRemiMestdagh.Migrations
                         principalColumn: "CustomerId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CustomerFilm_Customers_CustomerId1",
-                        column: x => x.CustomerId1,
-                        principalTable: "Customers",
-                        principalColumn: "CustomerId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_CustomerFilm_Films_FilmId",
                         column: x => x.FilmId,
                         principalTable: "Films",
-                        principalColumn: "ImdbId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -282,8 +282,8 @@ namespace BackEndRemiMestdagh.Migrations
                 name: "GenreFilm",
                 columns: table => new
                 {
-                    GenreId = table.Column<string>(nullable: false),
-                    FilmId = table.Column<string>(nullable: false)
+                    GenreId = table.Column<int>(nullable: false),
+                    FilmId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -292,13 +292,13 @@ namespace BackEndRemiMestdagh.Migrations
                         name: "FK_GenreFilm_Films_FilmId",
                         column: x => x.FilmId,
                         principalTable: "Films",
-                        principalColumn: "ImdbId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_GenreFilm_Genres_GenreId",
                         column: x => x.GenreId,
                         principalTable: "Genres",
-                        principalColumn: "Naam",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -345,13 +345,6 @@ namespace BackEndRemiMestdagh.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CustomerFilm_CustomerId1",
-                table: "CustomerFilm",
-                column: "CustomerId1",
-                unique: true,
-                filter: "[CustomerId1] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerFilm_FilmId",

@@ -42,21 +42,26 @@ namespace BackEndRemiMestdagh.Migrations
 
             modelBuilder.Entity("BackEndRemiMestdagh.Models.Acteur", b =>
                 {
-                    b.Property<string>("Naam")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.HasKey("Naam");
+                    b.Property<string>("Naam")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Acteurs");
                 });
 
             modelBuilder.Entity("BackEndRemiMestdagh.Models.ActeurFilm", b =>
                 {
-                    b.Property<string>("ActeurId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("ActeurId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("FilmId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("FilmId")
+                        .HasColumnType("int");
 
                     b.HasKey("ActeurId", "FilmId");
 
@@ -70,17 +75,13 @@ namespace BackEndRemiMestdagh.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<string>("FilmId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int?>("CustomerId1")
+                    b.Property<int>("FilmId")
                         .HasColumnType("int");
 
-                    b.HasKey("CustomerId", "FilmId");
+                    b.Property<bool>("IsWatchlist")
+                        .HasColumnType("bit");
 
-                    b.HasIndex("CustomerId1")
-                        .IsUnique()
-                        .HasFilter("[CustomerId1] IS NOT NULL");
+                    b.HasKey("CustomerId", "FilmId");
 
                     b.HasIndex("FilmId");
 
@@ -89,8 +90,13 @@ namespace BackEndRemiMestdagh.Migrations
 
             modelBuilder.Entity("BackEndRemiMestdagh.Models.Film", b =>
                 {
-                    b.Property<string>("ImdbId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RegisseurNaam")
                         .HasColumnType("nvarchar(450)");
@@ -111,7 +117,7 @@ namespace BackEndRemiMestdagh.Migrations
                     b.Property<int>("Year")
                         .HasColumnType("int");
 
-                    b.HasKey("ImdbId");
+                    b.HasKey("Id");
 
                     b.HasIndex("RegisseurNaam");
 
@@ -120,21 +126,26 @@ namespace BackEndRemiMestdagh.Migrations
 
             modelBuilder.Entity("BackEndRemiMestdagh.Models.Genre", b =>
                 {
-                    b.Property<string>("Naam")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.HasKey("Naam");
+                    b.Property<string>("Naam")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Genres");
                 });
 
             modelBuilder.Entity("BackEndRemiMestdagh.Models.GenreFilm", b =>
                 {
-                    b.Property<string>("GenreId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("GenreId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("FilmId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("FilmId")
+                        .HasColumnType("int");
 
                     b.HasKey("GenreId", "FilmId");
 
@@ -296,12 +307,10 @@ namespace BackEndRemiMestdagh.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -338,12 +347,10 @@ namespace BackEndRemiMestdagh.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -375,10 +382,6 @@ namespace BackEndRemiMestdagh.Migrations
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("BackEndRemiMestdagh.Data.Models.Customer", null)
-                        .WithOne("CustomerFilm")
-                        .HasForeignKey("BackEndRemiMestdagh.Models.CustomerFilm", "CustomerId1");
 
                     b.HasOne("BackEndRemiMestdagh.Models.Film", "Film")
                         .WithMany()

@@ -31,6 +31,16 @@
     <Compile Remove="Migrations\20200412093138_initial2.Designer.cs" />
     <Compile Remove="Migrations\20200412093807_initial.cs" />
     <Compile Remove="Migrations\20200412093807_initial.Designer.cs" />
+    <Compile Remove="Migrations\20200412093903_initial.cs" />
+    <Compile Remove="Migrations\20200412093903_initial.Designer.cs" />
+    <Compile Remove="Migrations\20201125092728_initla.cs" />
+    <Compile Remove="Migrations\20201125092728_initla.Designer.cs" />
+    <Compile Remove="Migrations\20201125093026_kaas.cs" />
+    <Compile Remove="Migrations\20201125093026_kaas.Designer.cs" />
+    <Compile Remove="Migrations\20201125093122_inital.cs" />
+    <Compile Remove="Migrations\20201125093122_inital.Designer.cs" />
+    <Compile Remove="Migrations\20201125094150_kaas.cs" />
+    <Compile Remove="Migrations\20201125094150_kaas.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -57,6 +67,7 @@
 
   <ItemGroup>
     <Folder Include="Data\json\" />
+    <Folder Include="Migrations\" />
     <Folder Include="scraper\" />
   </ItemGroup>
 

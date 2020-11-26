@@ -95,8 +95,8 @@ namespace BackEndRemiMestdagh.Controllers
             // return recommendations;
 
         }
-        [HttpPost("{id}")]
-        public async Task<IActionResult> AddToFavourites([FromRoute] int id)
+        [HttpPost("AddToWatched/{id}")]
+        public async Task<ActionResult> AddToFavourites([FromRoute] int id)
         {
 
             if (await _filmRepository.GetById(id) == null)
@@ -124,7 +124,7 @@ namespace BackEndRemiMestdagh.Controllers
 
         }
         [HttpPost("AddToWatchlist/{id}")]
-        public async Task<IActionResult> AddToWatchlist([FromRoute]int id)
+        public async Task<ActionResult> AddToWatchlist([FromRoute]int id)
         {
             if (await _filmRepository.GetById(id) == null)
             {

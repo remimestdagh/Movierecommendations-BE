@@ -17,5 +17,6 @@ namespace BackEndRemiMestdagh.DTOs
         public double Runtime { get; set; }
         public int Year { get; set; }
         public bool IsFavourite { get; set; }
+        public string Description { get; set; }
     }
 }

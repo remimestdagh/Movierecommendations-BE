@@ -29,7 +29,7 @@ namespace BackEndRemiMestdagh.Data
             if (await _context.Database.EnsureCreatedAsync())
             {
                 
-                using (StreamReader r = new StreamReader(@"C:\Users\Remi Mestdagh\source\repos\remimestdagh\Movierecommendations-BE\1920-a2-be-remimestdagh\Data\json\fillmsWithDescriptionAndPoster2020.json"))
+                using (StreamReader r = new StreamReader(@"C:\Users\Remi Mestdagh\source\repos\remimestdagh\Movierecommendations-BE\1920-a2-be-remimestdagh\Data\json\ellende.json"))
                 {
                     string json = await r.ReadToEndAsync();
 

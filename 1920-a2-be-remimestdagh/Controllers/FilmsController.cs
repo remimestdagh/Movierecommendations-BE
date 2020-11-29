@@ -47,8 +47,8 @@ namespace BackEndRemiMestdagh.Controllers
         [HttpGet("GetFavourites")]
         public IEnumerable<FilmDTO> GetCustomersFavourites()
         {
-            Customer customer = _customerRepository.GetByEmail2(User.Identity.Name);
-            List<Film> films = customer.Films.ToList();
+            Customer customer = _customerRepository.GetByEmail(User.Identity.Name);
+            List<Film> films = customer.Favorites.Select(p=>p.Film).ToList();
             List<FilmDTO> dtos = new List<FilmDTO>();
             foreach (Film film in films)
             {
@@ -58,6 +58,21 @@ namespace BackEndRemiMestdagh.Controllers
             }
             return dtos;
         }
+        [HttpGet("GetWatchlist")]
+        public IEnumerable<FilmDTO> GetWatchlist()
+        {
+            Customer customer = _customerRepository.GetByEmail(User.Identity.Name);
+            List<Film> films = customer.Watchlist.Select(p => p.Film).ToList();
+            List<FilmDTO> dtos = new List<FilmDTO>();
+            foreach (Film film in films)
+            {
+                string[] genres = film.Genres.Select(g => g.Genre.Naam).ToArray();
+                string[] acteurs = film.Acteurs.Select(g => g.Acteur.Naam).ToArray();
+                dtos.Add(new FilmDTO() { Description = film.Description, Id = film.Id, Titel = film.Titel, Regisseur = film.Regisseur.Naam, TitleImage = film.TitleImage, Year = film.Year, IsFavourite = true });
+            }
+            return dtos;
+        }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFavourite([FromRoute] int id)
@@ -118,7 +133,6 @@ namespace BackEndRemiMestdagh.Controllers
                 Console.WriteLine("Add to fav mislukt.");
 
             }
-
             _customerRepository.SaveChanges();
             return Ok();
 
@@ -151,27 +165,7 @@ namespace BackEndRemiMestdagh.Controllers
 
 
         }
-
-
-
-
-        [HttpGet("Favorites")]
-        public IEnumerable<Film> GetFavorites()
-        {
-            Customer customer = null;
-            try
-            {
-                customer = _customerRepository.GetByEmail(User.Identity.Name);
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.StackTrace);
-            }
-            return customer.FavorieteFilms.Select(f => f.Film).ToList();
-        }
-
-
+      
         [HttpGet("{id}")]
         public  async Task<ActionResult<FilmDTO>> GetFilm(int id)
         {

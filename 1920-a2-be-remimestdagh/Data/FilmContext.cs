@@ -41,6 +41,7 @@ namespace BackEndRemiMestdagh.Data
             builder.Entity<CustomerFilm>().HasOne(t => t.Film).WithMany().HasForeignKey(t=>t.FilmId).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<CustomerFilm>().HasOne(t => t.Klant).WithMany(t => t.FavorieteFilms).HasForeignKey(t=>t.CustomerId).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<Customer>().Ignore(c => c.Films);
+            builder.Entity<Customer>().Ignore(c => c.Watchlist);
 
 
 

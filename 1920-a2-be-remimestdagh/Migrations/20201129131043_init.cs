@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BackEndRemiMestdagh.Migrations
 {
-    public partial class henkst : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -259,7 +259,8 @@ namespace BackEndRemiMestdagh.Migrations
                 {
                     CustomerId = table.Column<int>(nullable: false),
                     FilmId = table.Column<int>(nullable: false),
-                    IsWatchlist = table.Column<bool>(nullable: false)
+                    IsWatchlist = table.Column<bool>(nullable: false),
+                    CustomerId1 = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -270,6 +271,12 @@ namespace BackEndRemiMestdagh.Migrations
                         principalTable: "Customers",
                         principalColumn: "CustomerId",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CustomerFilm_Customers_CustomerId1",
+                        column: x => x.CustomerId1,
+                        principalTable: "Customers",
+                        principalColumn: "CustomerId",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_CustomerFilm_Films_FilmId",
                         column: x => x.FilmId,
@@ -345,6 +352,11 @@ namespace BackEndRemiMestdagh.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CustomerFilm_CustomerId1",
+                table: "CustomerFilm",
+                column: "CustomerId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CustomerFilm_FilmId",

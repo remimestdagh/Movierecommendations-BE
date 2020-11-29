@@ -64,6 +64,10 @@ namespace BackEndRemiMestdagh.Data.Models
         }
         public ICollection<CustomerFilm> FavorieteFilms { get; private set; }
         public IEnumerable<Film> Films => FavorieteFilms.Select(f => f.Film);
+        public IEnumerable<CustomerFilm> Favorites =>
+            FavorieteFilms.Where(p => !p.IsWatchlist).ToList();
+            
+        public IEnumerable<CustomerFilm> Watchlist => FavorieteFilms.Where(p => p.IsWatchlist).ToList();
 
         #endregion
 

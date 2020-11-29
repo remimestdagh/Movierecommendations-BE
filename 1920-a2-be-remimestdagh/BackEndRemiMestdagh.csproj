@@ -41,6 +41,10 @@
     <Compile Remove="Migrations\20201125093122_inital.Designer.cs" />
     <Compile Remove="Migrations\20201125094150_kaas.cs" />
     <Compile Remove="Migrations\20201125094150_kaas.Designer.cs" />
+    <Compile Remove="Migrations\20201125094318_henkst.cs" />
+    <Compile Remove="Migrations\20201125094318_henkst.Designer.cs" />
+    <Compile Remove="Migrations\20201129131001_initi.cs" />
+    <Compile Remove="Migrations\20201129131001_initi.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

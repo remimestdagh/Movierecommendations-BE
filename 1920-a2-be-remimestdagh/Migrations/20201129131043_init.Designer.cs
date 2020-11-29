@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackEndRemiMestdagh.Migrations
 {
     [DbContext(typeof(FilmContext))]
-    [Migration("20201125094318_henkst")]
-    partial class henkst
+    [Migration("20201129131043_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -80,10 +80,15 @@ namespace BackEndRemiMestdagh.Migrations
                     b.Property<int>("FilmId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("CustomerId1")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsWatchlist")
                         .HasColumnType("bit");
 
                     b.HasKey("CustomerId", "FilmId");
+
+                    b.HasIndex("CustomerId1");
 
                     b.HasIndex("FilmId");
 
@@ -384,6 +389,10 @@ namespace BackEndRemiMestdagh.Migrations
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("BackEndRemiMestdagh.Data.Models.Customer", null)
+                        .WithMany("Favorites")
+                        .HasForeignKey("CustomerId1");
 
                     b.HasOne("BackEndRemiMestdagh.Models.Film", "Film")
                         .WithMany()

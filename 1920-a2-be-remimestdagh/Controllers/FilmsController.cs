@@ -136,9 +136,17 @@ namespace BackEndRemiMestdagh.Controllers
             catch (Exception e)
             {
                 Console.WriteLine("Add to fav mislukt.");
+                return BadRequest();
 
             }
-            _customerRepository.SaveChanges();
+            try
+            {
+                _customerRepository.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
             return Ok();
 
         }
@@ -162,10 +170,18 @@ namespace BackEndRemiMestdagh.Controllers
             catch (Exception e)
             {
                 Console.WriteLine("Add to fav mislukt.");
+                return BadRequest();
 
             }
-
-            _customerRepository.SaveChanges();
+            try
+            {
+                _customerRepository.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
+            
             return Ok();
 
 

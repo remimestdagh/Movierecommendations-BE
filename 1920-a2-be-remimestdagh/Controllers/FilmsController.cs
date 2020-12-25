@@ -36,6 +36,11 @@ namespace BackEndRemiMestdagh.Controllers
             foreach (Film film in films)
             {
                 bool isFav = customer.IsFavourite(film);
+                if(isFav)
+                {
+                    continue;
+                }
+                
                 string[] genres = film.Genres.Select(g => g.Genre.Naam).ToArray();
                 string[] acteurs = film.Acteurs.Select(g => g.Acteur.Naam).ToArray();
                 dtos.Add(new FilmDTO() {Description=film.Description, Id = film.Id, Titel = film.Titel, Regisseur = film.Regisseur.Naam, TitleImage = film.TitleImage, Year = film.Year, IsFavourite = isFav });

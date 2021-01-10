@@ -36,14 +36,39 @@ namespace BackEndRemiMestdagh.Controllers
             foreach (Film film in films)
             {
                 bool isFav = customer.IsFavourite(film);
-                if(isFav)
+                if (isFav)
                 {
                     continue;
                 }
-                
+
                 string[] genres = film.Genres.Select(g => g.Genre.Naam).ToArray();
                 string[] acteurs = film.Acteurs.Select(g => g.Acteur.Naam).ToArray();
-                dtos.Add(new FilmDTO() {Description=film.Description, Id = film.Id, Titel = film.Titel, Regisseur = film.Regisseur.Naam, TitleImage = film.TitleImage, Year = film.Year, IsFavourite = isFav });
+                dtos.Add(new FilmDTO() { Description = film.Description, Id = film.Id, Titel = film.Titel, Regisseur = film.Regisseur.Naam, TitleImage = film.TitleImage, Year = film.Year, IsFavourite = isFav });
+            }
+            while (dtos.Count < 20)
+            {
+                getal += 20;
+
+                films = await _filmRepository.GetSpecified(getal);
+                foreach (Film film in films)
+                {
+                    bool isFav = customer.IsFavourite(film);
+                    if (isFav)
+                    {
+                        continue;
+                    }
+                    if(dtos.Count == 20)
+                    {
+                        break;
+                    }
+                    
+
+                    string[] genres = film.Genres.Select(g => g.Genre.Naam).ToArray();
+                    string[] acteurs = film.Acteurs.Select(g => g.Acteur.Naam).ToArray();
+                    dtos.Add(new FilmDTO() { Description = film.Description, Id = film.Id, Titel = film.Titel, Regisseur = film.Regisseur.Naam, TitleImage = film.TitleImage, Year = film.Year, IsFavourite = isFav });
+                }
+
+
             }
             return dtos;
             // return _filmRepository.GetAll().OrderByDescending(r => r.Score);
@@ -53,7 +78,7 @@ namespace BackEndRemiMestdagh.Controllers
         public IEnumerable<FilmDTO> GetCustomersFavourites()
         {
             Customer customer = _customerRepository.GetByEmail(User.Identity.Name);
-            List<Film> films = customer.Favorites.Select(p=>p.Film).ToList();
+            List<Film> films = customer.Favorites.Select(p => p.Film).ToList();
             List<FilmDTO> dtos = new List<FilmDTO>();
             foreach (Film film in films)
             {
@@ -109,7 +134,7 @@ namespace BackEndRemiMestdagh.Controllers
             {
                 string[] genres = film.Genres.Select(g => g.Genre.Naam).ToArray();
                 string[] acteurs = film.Acteurs.Select(g => g.Acteur.Naam).ToArray();
-                dtos.Add(new FilmDTO() {Description=film.Description, Id = film.Id, Titel = film.Titel, Score = film.Score, Regisseur = film.Regisseur.Naam, Genres = genres, Acteurs = acteurs, TitleImage = film.TitleImage, Runtime = film.Runtime, Year = film.Year });
+                dtos.Add(new FilmDTO() { Description = film.Description, Id = film.Id, Titel = film.Titel, Score = film.Score, Regisseur = film.Regisseur.Naam, Genres = genres, Acteurs = acteurs, TitleImage = film.TitleImage, Runtime = film.Runtime, Year = film.Year });
             }
             return dtos;
             // return recommendations;
@@ -151,7 +176,7 @@ namespace BackEndRemiMestdagh.Controllers
 
         }
         [HttpPost("AddToWatchlist/{id}")]
-        public async Task<ActionResult> AddToWatchlist([FromRoute]int id)
+        public async Task<ActionResult> AddToWatchlist([FromRoute] int id)
         {
             if (await _filmRepository.GetById(id) == null)
             {
@@ -181,14 +206,14 @@ namespace BackEndRemiMestdagh.Controllers
             {
                 return BadRequest();
             }
-            
+
             return Ok();
 
 
         }
-      
+
         [HttpGet("{id}")]
-        public  async Task<ActionResult<FilmDTO>> GetFilm(int id)
+        public async Task<ActionResult<FilmDTO>> GetFilm(int id)
         {
             Film film = await _filmRepository.GetById(id);
             if (film is null)
